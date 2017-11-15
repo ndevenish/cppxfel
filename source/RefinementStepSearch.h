@@ -21,32 +21,30 @@
 #define __cppxfel__RefinementStepSearch__
 
 #include <stdio.h>
-#include "parameters.h"
 #include "RefinementStrategy.h"
+#include "parameters.h"
 
-class RefinementStepSearch : public RefinementStrategy
-{
-private:
-    double minimizeParameter(int i, double *bestScore);
-    double minimizeTwoParameters(int whichParam1, int whichParam2, double *bestScore);
+class RefinementStepSearch : public RefinementStrategy {
+ private:
+  double minimizeParameter(int i, double *bestScore);
+  double minimizeTwoParameters(int whichParam1, int whichParam2,
+                               double *bestScore);
 
-    Getter afterCycleFunction;
-    void *afterCycleObject;
-public:
-    RefinementStepSearch() : RefinementStrategy()
-    {
-        afterCycleFunction = NULL;
-        afterCycleObject = NULL;
-    };
+  Getter afterCycleFunction;
+  void *afterCycleObject;
 
-    void setAfterCycleFunction(Getter function, void *evaluatedObject)
-    {
-        afterCycleFunction = function;
-        afterCycleObject = evaluatedObject;
-    }
+ public:
+  RefinementStepSearch() : RefinementStrategy() {
+    afterCycleFunction = NULL;
+    afterCycleObject = NULL;
+  };
 
-    virtual void refine();
+  void setAfterCycleFunction(Getter function, void *evaluatedObject) {
+    afterCycleFunction = function;
+    afterCycleObject = evaluatedObject;
+  }
 
+  virtual void refine();
 };
 
 #endif /* defined(__cppxfel__RefinementStepSearch__) */

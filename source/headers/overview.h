@@ -23,7 +23,8 @@
  *
  * @verbatim
 
-<!-- ::INDEX_INFO::C libraries::Library::::CCP4 C/C++ Software Library:::::::: -->
+<!-- ::INDEX_INFO::C libraries::Library::::CCP4 C/C++ Software Library::::::::
+-->
 
    @endverbatim
  *

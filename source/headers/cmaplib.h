@@ -21,7 +21,8 @@
  *
  * @verbatim
 
-<!-- ::INDEX_INFO::CMAP library::Library::::C/C++ Software Library for CCP4 map files:::::::: -->
+<!-- ::INDEX_INFO::CMAP library::Library::::C/C++ Software Library for CCP4 map
+files:::::::: -->
 
    @endverbatim
  *
@@ -81,9 +82,9 @@ struct _CMMFile_Skew {
 };
 
 struct _CMMFile_Symop {
-unsigned int offset;
-unsigned int size;
-unsigned int number;
+  unsigned int offset;
+  unsigned int size;
+  unsigned int number;
 };
 
 struct _CMMFile_Data {
@@ -95,32 +96,32 @@ struct _CMMFile_Data {
 };
 
 struct _CMMFile_Stats {
-  float offset;                /* pseudo zero value */
-  float min;                   /* minimum density value */
-  float max;                   /* maximum density value */
-  double mean;               /* sum of densities (less offset) */
-  double rms;              /* sum of square of densities (less offset) */
-  int total;                    /* number of summed densities */
+  float offset; /* pseudo zero value */
+  float min;    /* minimum density value */
+  float max;    /* maximum density value */
+  double mean;  /* sum of densities (less offset) */
+  double rms;   /* sum of square of densities (less offset) */
+  int total;    /* number of summed densities */
 };
 
 struct _CMMFile {
-CCP4File *stream;
-char *file_name;
-unsigned int data_mode;
-unsigned int close_mode;
-float cell[6];
-int spacegroup;
-int map_dim[3];
-int origin[3];
-int cell_grid[3];
-int axes_order[3];
-CMMFile_Symop symop;
-CMMFile_Data data;
-CMMFile_Stats stats;
-CMMFile_Labels labels;
-CMMFile_Skew skew;
-int reserved[8];
-char user_access[24];
+  CCP4File *stream;
+  char *file_name;
+  unsigned int data_mode;
+  unsigned int close_mode;
+  float cell[6];
+  int spacegroup;
+  int map_dim[3];
+  int origin[3];
+  int cell_grid[3];
+  int axes_order[3];
+  CMMFile_Symop symop;
+  CMMFile_Data data;
+  CMMFile_Stats stats;
+  CMMFile_Labels labels;
+  CMMFile_Skew skew;
+  int reserved[8];
+  char user_access[24];
 };
 
 /* open a file for read/write */
@@ -172,8 +173,8 @@ void ccp4_cmap_get_origin(const CMMFile *mfile, int *origin);
 void ccp4_cmap_get_order(const CMMFile *mfile, int *axes_order);
 void ccp4_cmap_get_dim(const CMMFile *mfile, int *map_dim);
 int ccp4_cmap_get_spacegroup(const CMMFile *mfile);
-void ccp4_cmap_get_mapstats(const CMMFile *mfile, float *min, float* max,
-                           double *mean, double *rms);
+void ccp4_cmap_get_mapstats(const CMMFile *mfile, float *min, float *max,
+                            double *mean, double *rms);
 
 /* set the header parameters */
 void ccp4_cmap_set_cell(CMMFile *mfile, const float *cell);
@@ -183,7 +184,7 @@ void ccp4_cmap_set_order(CMMFile *mfile, const int *axes_order);
 void ccp4_cmap_set_dim(CMMFile *mfile, const int *map_dim);
 void ccp4_cmap_set_spacegroup(CMMFile *mfile, int spacegroup);
 void ccp4_cmap_set_mapstats(CMMFile *mfile, const float min, const float max,
-                           const double mean, const double rms);
+                            const double mean, const double rms);
 
 /* get map file datamode */
 unsigned int ccp4_cmap_get_datamode(const CMMFile *mfile);
@@ -210,10 +211,12 @@ int ccp4_cmap_get_symop(CMMFile *mfile, char *buffer);
 int ccp4_cmap_set_symop(CMMFile *mfile, const char *buffer);
 
 /* get the mask */
-int ccp4_cmap_get_mask(const CMMFile *mfile, float *skew_mat, float *skew_trans);
+int ccp4_cmap_get_mask(const CMMFile *mfile, float *skew_mat,
+                       float *skew_trans);
 
 /* set the mask */
-int ccp4_cmap_set_mask(CMMFile *mfile, const float *skew_mat, const float *skew_trans);
+int ccp4_cmap_set_mask(CMMFile *mfile, const float *skew_mat,
+                       const float *skew_trans);
 
 /* the number of labels used */
 int ccp4_cmap_number_label(const CMMFile *mfile);
@@ -232,7 +235,7 @@ char *ccp4_cmap_get_title(const CMMFile *mfile);
 
 #ifdef __cplusplus
 }
-}
+}  // namespace CMap_io
 #endif
 
-#endif  /* __GUARD_MAPLIB */
+#endif /* __GUARD_MAPLIB */

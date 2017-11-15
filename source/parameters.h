@@ -102,75 +102,67 @@ class Miller;
 
 #define member_size(type, member) sizeof(((type *)0)->member)
 
-#include "parameters.h"
-#include <sstream>
-#include <memory>
-#include <vector>
-#include <map>
-#include <boost/variant.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <string>
+#include <boost/variant.hpp>
+#include <map>
+#include <memory>
 #include <mutex>
+#include <sstream>
+#include <string>
+#include <vector>
+#include "parameters.h"
 
 typedef std::pair<double, double> Coord;
 
 using std::vector;
 
-
-typedef struct
-{
-    double h;
-    double k;
-    double l;
+typedef struct {
+  double h;
+  double k;
+  double l;
 } vec;
 
-typedef enum
-{
-    RotationModeHorizontalVertical = 0,
-    RotationModeUnitCellABC = 1,
+typedef enum {
+  RotationModeHorizontalVertical = 0,
+  RotationModeUnitCellABC = 1,
 } RotationMode;
 
-typedef enum
-{
-        MaskForeground = 2, MaskBackground = 1, MaskNeither = 0
-} Mask;
+typedef enum { MaskForeground = 2, MaskBackground = 1, MaskNeither = 0 } Mask;
 
-typedef enum
-{
-        RFactorNone, RFactorTypeMerge, RFactorTypePim, RFactorTypeMeas,
+typedef enum {
+  RFactorNone,
+  RFactorTypeMerge,
+  RFactorTypePim,
+  RFactorTypeMeas,
 } RFactorType;
 
-typedef enum
-{
-    MinimizationMethodStepSearch = 0,
-    MinimizationMethodNelderMead = 1,
-        MinimizationMethodGridSearch = 2,
+typedef enum {
+  MinimizationMethodStepSearch = 0,
+  MinimizationMethodNelderMead = 1,
+  MinimizationMethodGridSearch = 2,
 } MinimizationMethod;
 
-typedef enum
-{
-    RejectReasonNone = 0, // not rejected
-    RejectReasonMerge = 1 << 0,
-    RejectReasonPartiality = 1 << 1,
-    RejectReasonCorrelation = 1 << 2,
+typedef enum {
+  RejectReasonNone = 0,  // not rejected
+  RejectReasonMerge = 1 << 0,
+  RejectReasonPartiality = 1 << 1,
+  RejectReasonCorrelation = 1 << 2,
 } RejectReason;
 
-typedef enum
-{
-    ScalingTypeAverage = 0,
-    ScalingTypeReference = 1,
-    ScalingTypeReferenceLeastSquares = 2,
-    ScalingTypeMinimizeRMerge = 3,
-    ScalingTypeBFactor = 4,
-    ScalingTypeResolutionShells = 5
+typedef enum {
+  ScalingTypeAverage = 0,
+  ScalingTypeReference = 1,
+  ScalingTypeReferenceLeastSquares = 2,
+  ScalingTypeMinimizeRMerge = 3,
+  ScalingTypeBFactor = 4,
+  ScalingTypeResolutionShells = 5
 } ScalingType;
 
-typedef enum
-{
-    GeometryFormatCppxfel = 0,
-    GeometryFormatCrystFEL = 1,
-    GeometryFormatPanelList = 2,
+typedef enum {
+  GeometryFormatCppxfel = 0,
+  GeometryFormatCrystFEL = 1,
+  GeometryFormatPanelList = 2,
 } GeometryFormat;
 
 class Detector;
@@ -216,19 +208,19 @@ typedef boost::shared_ptr<Miller> MillerPtr;
 typedef boost::weak_ptr<Miller> MillerWeakPtr;
 typedef boost::shared_ptr<Reflection> ReflectionPtr;
 typedef boost::weak_ptr<Reflection> ReflectionWeakPtr;
-typedef boost::shared_ptr<Shoebox>ShoeboxPtr;
+typedef boost::shared_ptr<Shoebox> ShoeboxPtr;
 typedef boost::shared_ptr<Spot> SpotPtr;
-typedef boost::shared_ptr<Detector>DetectorPtr;
-typedef boost::weak_ptr<Detector>DetectorWeakPtr;
+typedef boost::shared_ptr<Detector> DetectorPtr;
+typedef boost::weak_ptr<Detector> DetectorWeakPtr;
 typedef boost::shared_ptr<SolventMask> SolventMaskPtr;
 typedef boost::shared_ptr<MtzManager> MtzPtr;
 typedef boost::shared_ptr<Hdf5Crystal> Hdf5CrystalPtr;
 typedef boost::shared_ptr<std::ostringstream> StreamPtr;
-typedef boost::shared_ptr<Logger>LoggerPtr;
+typedef boost::shared_ptr<Logger> LoggerPtr;
 typedef boost::shared_ptr<Image> ImagePtr;
-typedef boost::weak_ptr<Image>ImageWeakPtr;
+typedef boost::weak_ptr<Image> ImageWeakPtr;
 typedef boost::shared_ptr<Hdf5Image> Hdf5ImagePtr;
-typedef boost::shared_ptr<Matrix>MatrixPtr;
+typedef boost::shared_ptr<Matrix> MatrixPtr;
 typedef boost::shared_ptr<SpotVector> SpotVectorPtr;
 typedef boost::shared_ptr<IndexManager> IndexManagerPtr;
 typedef boost::weak_ptr<IndexManager> IndexManagerWeakPtr;
@@ -244,16 +236,17 @@ typedef std::shared_ptr<Hdf5ManagerCheetahSacla> Hdf5ManagerCheetahSaclaPtr;
 typedef std::shared_ptr<Hdf5ManagerCheetahLCLS> Hdf5ManagerCheetahLCLSPtr;
 typedef std::shared_ptr<Hdf5ManagerCheetah> Hdf5ManagerCheetahPtr;
 
-typedef boost::variant<double, double, std::string, bool, int,
-  vector<double>, vector<int>, vector<std::string> > ParameterVariant;
+typedef boost::variant<double, double, std::string, bool, int, vector<double>,
+                       vector<int>, vector<std::string> >
+    ParameterVariant;
 typedef std::map<std::string, ParameterVariant> ParametersMap;
 typedef void (*ParserFunction)(ParametersMap *, std::string, std::string);
 typedef std::map<std::string, ParserFunction> ParserMap;
 
-typedef double (StatisticsFunction)(MtzManager *, MtzManager *, int, int *,
-                double *, double, double, bool, bool);
-typedef double (RFactorFunction)(RFactorType, MtzManager *, int *, double *,
-                double, double, bool);
+typedef double(StatisticsFunction)(MtzManager *, MtzManager *, int, int *,
+                                   double *, double, double, bool, bool);
+typedef double(RFactorFunction)(RFactorType, MtzManager *, int *, double *,
+                                double, double, bool);
 typedef std::pair<vec, double> VectorDistance;
 typedef std::pair<std::pair<SpotVectorPtr, VectorDistance>, double> Match;
 
@@ -262,55 +255,51 @@ typedef void (*Setter)(void *, double newValue);
 
 typedef std::map<int, std::pair<int, int> > PowderHistogram;
 
-
-typedef enum
-{
-    LogLevelNormal = 0,
-    LogLevelDetailed = 1,
-    LogLevelDebug = 2
+typedef enum {
+  LogLevelNormal = 0,
+  LogLevelDetailed = 1,
+  LogLevelDebug = 2
 } LogLevel;
 
-
-typedef enum
-{
-        WeightTypeAverage,
-        WeightTypePartiality,
-        WeightTypePartialitySigma,
-        WeightTypeISigI,
-        WeightTypePartialityCorrelation
+typedef enum {
+  WeightTypeAverage,
+  WeightTypePartiality,
+  WeightTypePartialitySigma,
+  WeightTypeISigI,
+  WeightTypePartialityCorrelation
 } WeightType;
 
-typedef enum
-{
-    PseudoScoreTypeInvalid,
-    PseudoScoreTypeAll,
-    PseudoScoreTypeIntraPanel,
-    PseudoScoreTypeInterPanel,
-    PseudoScoreTypeAllInterPanel,
-    PseudoScoreTypeBeamCentre,
+typedef enum {
+  PseudoScoreTypeInvalid,
+  PseudoScoreTypeAll,
+  PseudoScoreTypeIntraPanel,
+  PseudoScoreTypeInterPanel,
+  PseudoScoreTypeAllInterPanel,
+  PseudoScoreTypeBeamCentre,
 } PseudoScoreType;
 
-typedef enum
-{
-    GeometryScoreTypeInterMiller,
-    GeometryScoreTypeIntraMiller,
-    GeometryScoreTypeIntrapanel,
-    GeometryScoreTypeInterpanel,
-    GeometryScoreTypeBeamCentre,
-        GeometryScoreTypePeakSearch,
+typedef enum {
+  GeometryScoreTypeInterMiller,
+  GeometryScoreTypeIntraMiller,
+  GeometryScoreTypeIntrapanel,
+  GeometryScoreTypeInterpanel,
+  GeometryScoreTypeBeamCentre,
+  GeometryScoreTypePeakSearch,
 
 } GeometryScoreType;
 
-typedef enum
-{
-    PseudoScoreWeightingAxisH = 0,
-    PseudoScoreWeightingAxisK = 1,
-    PseudoScoreWeightingAxisNone = 2,
+typedef enum {
+  PseudoScoreWeightingAxisH = 0,
+  PseudoScoreWeightingAxisK = 1,
+  PseudoScoreWeightingAxisNone = 2,
 } PseudoScoreWeightingAxis;
 
-typedef enum
-{
-        PartialityModelNone, PartialityModelSimple, PartialityModelScaled, PartialityModelFixed, PartialityModelBinary
+typedef enum {
+  PartialityModelNone,
+  PartialityModelSimple,
+  PartialityModelScaled,
+  PartialityModelFixed,
+  PartialityModelBinary
 } PartialityModel;
 
 #endif /* PARAMETERS_H_ */

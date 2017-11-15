@@ -21,165 +21,96 @@
 #define __cppxfel__Hdf5Table__
 
 #include <stdio.h>
-#include "parameters.h"
-#include "Hdf5Manager.h"
 #include <cstdarg>
+#include "Hdf5Manager.h"
+#include "parameters.h"
 
-class Hdf5Table
-{
-private:
-    std::string tableTitle;
-    std::string tableName;
-    int nfields;
-    int nrecords;
-    size_t type_size;
-    const char **fieldNames;
-    size_t *fieldOffsets;
-    size_t *fieldSizes;
-    hid_t *fieldTypes;
-    int chunk_size;
-    int *fill_data;
-    int compress;
-    void *data;
-public:
-    ~Hdf5Table();
-    Hdf5Table()
-    {
-        fill_data = NULL;
-        chunk_size = 10;
-        compress = false;
-        data = NULL;
-        fieldTypes = NULL;
-        fieldOffsets = NULL;
-        fieldNames = NULL;
-        type_size = 0;
-        nrecords = 0;
-        nfields = 0;
-    };
+class Hdf5Table {
+ private:
+  std::string tableTitle;
+  std::string tableName;
+  int nfields;
+  int nrecords;
+  size_t type_size;
+  const char **fieldNames;
+  size_t *fieldOffsets;
+  size_t *fieldSizes;
+  hid_t *fieldTypes;
+  int chunk_size;
+  int *fill_data;
+  int compress;
+  void *data;
 
-    void setTableTitle(std::string title)
-    {
-        tableTitle = title;
-    }
+ public:
+  ~Hdf5Table();
+  Hdf5Table() {
+    fill_data = NULL;
+    chunk_size = 10;
+    compress = false;
+    data = NULL;
+    fieldTypes = NULL;
+    fieldOffsets = NULL;
+    fieldNames = NULL;
+    type_size = 0;
+    nrecords = 0;
+    nfields = 0;
+  };
 
-    const char *getTableTitle()
-    {
-        return tableTitle.c_str();
-    }
+  void setTableTitle(std::string title) { tableTitle = title; }
 
-    void setTableName(std::string name)
-    {
-        tableName = name;
-    }
+  const char *getTableTitle() { return tableTitle.c_str(); }
 
-    const char *getTableName()
-    {
-        return tableName.c_str();
-    }
+  void setTableName(std::string name) { tableName = name; }
 
-    void setNumberOfFields(int fieldNum)
-    {
-        nfields = fieldNum;
-    }
+  const char *getTableName() { return tableName.c_str(); }
 
-    int getNumberOfFields()
-    {
-        return nfields;
-    }
+  void setNumberOfFields(int fieldNum) { nfields = fieldNum; }
 
-    void setNumberOfRecords(int recordNum)
-    {
-        nrecords = recordNum;
-    }
+  int getNumberOfFields() { return nfields; }
 
-    int getNumberOfRecords()
-    {
-        return nrecords;
-    }
+  void setNumberOfRecords(int recordNum) { nrecords = recordNum; }
 
-    void setRecordSize(int newSize)
-    {
-        type_size = newSize;
-    }
+  int getNumberOfRecords() { return nrecords; }
 
-    int getRecordSize()
-    {
-        return (int)type_size;
-    }
+  void setRecordSize(int newSize) { type_size = newSize; }
 
-    void setOffsets(size_t *offsets)
-    {
-        fieldOffsets = offsets;
-    }
+  int getRecordSize() { return (int)type_size; }
 
-    size_t *getOffsets()
-    {
-        return fieldOffsets;
-    }
+  void setOffsets(size_t *offsets) { fieldOffsets = offsets; }
 
-    void setHeaders(const char **pointerToCharArrayArray)
-    {
-        fieldNames = pointerToCharArrayArray;
-    }
+  size_t *getOffsets() { return fieldOffsets; }
 
-    const char **getHeaders()
-    {
-        return fieldNames;
-    }
+  void setHeaders(const char **pointerToCharArrayArray) {
+    fieldNames = pointerToCharArrayArray;
+  }
 
-    void setTypes(hid_t *hidTTypes)
-    {
-        fieldTypes = hidTTypes;
-    }
+  const char **getHeaders() { return fieldNames; }
 
-    hid_t *getTypes()
-    {
-        return fieldTypes;
-    }
+  void setTypes(hid_t *hidTTypes) { fieldTypes = hidTTypes; }
 
-    void setCompress(bool shouldCompress)
-    {
-        compress = shouldCompress;
-    }
+  hid_t *getTypes() { return fieldTypes; }
 
-    int getCompress()
-    {
-        return compress;
-    }
+  void setCompress(bool shouldCompress) { compress = shouldCompress; }
 
-    int getChunkSize()
-    {
-        return chunk_size;
-    }
+  int getCompress() { return compress; }
 
-    void setData(void *buffer)
-    {
-        data = buffer;
-    }
+  int getChunkSize() { return chunk_size; }
 
-    void *getData()
-    {
-        return data;
-    }
+  void setData(void *buffer) { data = buffer; }
 
-    int *getFillData()
-    {
-        return fill_data;
-    }
+  void *getData() { return data; }
 
-    void setFieldSizes(size_t *sizes)
-    {
-        fieldSizes = sizes;
-    }
+  int *getFillData() { return fill_data; }
 
-    size_t *getFieldSizes()
-    {
-        return fieldSizes;
-    }
+  void setFieldSizes(size_t *sizes) { fieldSizes = sizes; }
 
-    bool writeToManager(Hdf5ManagerProcessingPtr manager, std::string address);
-    int readFromManager(Hdf5ManagerProcessingPtr manager, std::string address, void *data);
-    int readSizeFromManager(Hdf5ManagerProcessingPtr manager, std::string address);
+  size_t *getFieldSizes() { return fieldSizes; }
+
+  bool writeToManager(Hdf5ManagerProcessingPtr manager, std::string address);
+  int readFromManager(Hdf5ManagerProcessingPtr manager, std::string address,
+                      void *data);
+  int readSizeFromManager(Hdf5ManagerProcessingPtr manager,
+                          std::string address);
 };
 
 #endif /* defined(__cppxfel__Hdf5Table__) */

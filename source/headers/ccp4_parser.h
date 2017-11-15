@@ -1,6 +1,6 @@
 /*
-     ccp4_parser.h: Headers for functions to read in and "parse" CCP4 keyworded input.
-     Copyright (C) 2001  CCLRC, Peter Briggs
+     ccp4_parser.h: Headers for functions to read in and "parse" CCP4 keyworded
+   input. Copyright (C) 2001  CCLRC, Peter Briggs
 
      This library is free software: you can redistribute it and/or
      modify it under the terms of the GNU Lesser General Public License
@@ -21,7 +21,8 @@
  *
  * @verbatim
 
-<!-- ::INDEX_INFO::CParser library::Library::::C Software Library for CCP4-style parsing:::::::: -->
+<!-- ::INDEX_INFO::CParser library::Library::::C Software Library for CCP4-style
+parsing:::::::: -->
 
    @endverbatim
  *
@@ -109,11 +110,11 @@ See the distributed programs <a href="../ncont.html">NCONT</a> and
 
 /* note order: these must be outside CCP4 namespace */
 #include <stdio.h>
-#include"ccp4_utils.h"
-#include"ccp4_spg.h"
+#include "ccp4_spg.h"
+#include "ccp4_utils.h"
 
 /* Macro to make C functions callable from C++ */
-#ifdef  __cplusplus
+#ifdef __cplusplus
 namespace CCP4 {
 extern "C" {
 typedef CSym::ccp4_symop ccp4_symop;
@@ -129,20 +130,20 @@ typedef CSym::ccp4_symop ccp4_symop;
    Construct to hold the information about a single token */
 
 typedef struct {
-  char   *fullstring;   /* Full string containing all of token */
-  char   word[5];       /* First four characters of token */
-  double value;         /* Equivalent numerical value */
-  int    isstring;      /* Flag: true if token is character string */
-  int    strlength;     /* Number of characters in whole token (strings only) */
-  int    isnumber;      /* Flag: true if token is number */
-  int    intdigits;     /* Number of 'digits' preceeding the decimal point
-                           (numbers only) */
-  int    frcdigits;     /* Number of 'digits' after the decimal point (numbers
-                           only) */
-  int    isquoted;      /* Flag: true if token is contained in quotes */
-  int    isnull;        /* Flag: true if token is null field */
-  int    ibeg,iend;     /* Begin and end character positions of token
-                           in input line */
+  char *fullstring; /* Full string containing all of token */
+  char word[5];     /* First four characters of token */
+  double value;     /* Equivalent numerical value */
+  int isstring;     /* Flag: true if token is character string */
+  int strlength;    /* Number of characters in whole token (strings only) */
+  int isnumber;     /* Flag: true if token is number */
+  int intdigits;    /* Number of 'digits' preceeding the decimal point
+                       (numbers only) */
+  int frcdigits;    /* Number of 'digits' after the decimal point (numbers
+                       only) */
+  int isquoted;     /* Flag: true if token is contained in quotes */
+  int isnull;       /* Flag: true if token is null field */
+  int ibeg, iend;   /* Begin and end character positions of token
+                       in input line */
 } CCP4PARSERTOKEN;
 
 /* CCP4 Parser array
@@ -150,17 +151,17 @@ typedef struct {
 
 typedef struct {
   /* "Public" members */
-  char   keyword[5];      /* Keyword (=token[1].token, uppercased) */
-  int    ntokens;         /* Number of tokens */
+  char keyword[5];        /* Keyword (=token[1].token, uppercased) */
+  int ntokens;            /* Number of tokens */
   CCP4PARSERTOKEN *token; /* Array of tokens */
   /* "Private" members */
-  FILE   *fp;             /* Pointer to an external command file */
-  int    maxtokens;       /* Maximum number of tokens allowed */
-  char   *delim;          /* List of delimiter characters */
-  char   *nulldelim;      /* List of null delimiter characters */
-  char   *comment;        /* List of comment characters */
-  double max_exponent;    /* Largest allowed exponent for numerical tokens */
-  double min_exponent;    /* Smallest allowed exponent for numerical tokens */
+  FILE *fp;            /* Pointer to an external command file */
+  int maxtokens;       /* Maximum number of tokens allowed */
+  char *delim;         /* List of delimiter characters */
+  char *nulldelim;     /* List of null delimiter characters */
+  char *comment;       /* List of comment characters */
+  double max_exponent; /* Largest allowed exponent for numerical tokens */
+  double min_exponent; /* Smallest allowed exponent for numerical tokens */
 } CCP4PARSERARRAY;
 
 /*------------------------------------------------------------------*/
@@ -177,7 +178,7 @@ typedef struct {
  * @param maxtokens maximum number of tokens on a line
  * @return pointer to a new CCP4PARSERARRAY structure
  */
-CCP4PARSERARRAY* ccp4_parse_start(const int maxtokens);
+CCP4PARSERARRAY *ccp4_parse_start(const int maxtokens);
 
 /** Cleans up a CCP4PARSEARRAY after being used by ccp4_parse/
    ccp4_parser functions.
@@ -189,12 +190,12 @@ int ccp4_parse_end(CCP4PARSERARRAY *parsePtr);
 int ccp4_parse_init_token(const CCP4PARSERARRAY *parsePtr, const int itok);
 
 int ccp4_parse_delimiters(CCP4PARSERARRAY *parsePtr, const char *delim,
-                                  const char *nulldelim);
+                          const char *nulldelim);
 
 int ccp4_parse_comments(CCP4PARSERARRAY *parsePtr, const char *comment_chars);
 
 int ccp4_parse_maxmin(CCP4PARSERARRAY *parsePtr, const double max_exponent,
-                              const double min_exponent);
+                      const double min_exponent);
 
 int ccp4_parse_reset(CCP4PARSERARRAY *parsePtr);
 
@@ -217,7 +218,7 @@ int ccp4_parse(const char *line, CCP4PARSERARRAY *parser);
  * @return Number of tokens found.
  */
 int ccp4_parser(char *line, const int n, CCP4PARSERARRAY *parser,
-                        const int print);
+                const int print);
 
 /* External utility functions */
 
@@ -236,23 +237,23 @@ int ccp4_keymatch(const char *keyin1, const char *keyin2);
  * @param str2 Input string
  * @return str1
  */
-char *strtoupper (char *str1, const char *str2);
+char *strtoupper(char *str1, const char *str2);
 
 /** Convert string to lowercase.
  * @param str1 On exit str1 will contain lowercased copy of str2
  * @param str2 Input string
  * @return str1
  */
-char *strtolower (char *str1, const char *str2);
+char *strtolower(char *str1, const char *str2);
 
-int strmatch (const char *str1, const char *str2);
+int strmatch(const char *str1, const char *str2);
 
 int charmatch(const char character, const char *charlist);
 
 int doublefromstr(const char *str, const double max_exp, const double min_exp,
-                          double *valuePtr, double *intvaluePtr, int *intdigitsPtr,
-                          double *frcvaluePtr, int *frcdigitsPtr,
-                          double *expvaluePtr, int *expdigitsPtr);
+                  double *valuePtr, double *intvaluePtr, int *intdigitsPtr,
+                  double *frcvaluePtr, int *frcdigitsPtr, double *expvaluePtr,
+                  int *expdigitsPtr);
 
 /** Convert symmetry operator as string to ccp4_symop struct.
  * @param symchs_begin pointer to beginning of string
@@ -271,11 +272,13 @@ ccp4_symop symop_to_rotandtrn(const char *symchs_begin, const char *symchs_end);
  * @param rot 4 x 4 matrix operator
  * @return  NULL on error, final position pointer on success
  */
-const char * symop_to_mat4(const char *symchs_begin, const char *symchs_end, float *rot);
+const char *symop_to_mat4(const char *symchs_begin, const char *symchs_end,
+                          float *rot);
 int symop_to_mat4_err(const char *symop);
 ccp4_symop mat4_to_rotandtrn(const float rsm[4][4]);
 /* This is Charles' version of symtr */
-char *rotandtrn_to_symop(char *symchs_begin, char *symchs_end, const ccp4_symop symop);
+char *rotandtrn_to_symop(char *symchs_begin, char *symchs_end,
+                         const ccp4_symop symop);
 void rotandtrn_to_mat4(float rsm[4][4], const ccp4_symop symop);
 
 /** Convert symmetry operator as matrix to string.
@@ -287,7 +290,8 @@ void rotandtrn_to_mat4(float rsm[4][4], const ccp4_symop symop);
  * @param rsm 4 x 4 matrix operator
  * @return pointer to beginning of string
  */
-char *mat4_to_symop(char *symchs_begin, char *symchs_end, const float rsm[4][4]);
+char *mat4_to_symop(char *symchs_begin, char *symchs_end,
+                    const float rsm[4][4]);
 
 /** Convert symmetry operator as matrix to string in reciprocal space notation.
  * This is Charles' version of symtr. Note that translations
@@ -298,11 +302,12 @@ char *mat4_to_symop(char *symchs_begin, char *symchs_end, const float rsm[4][4])
  * @param rsm 4 x 4 matrix operator
  * @return pointer to beginning of string
  */
-char *mat4_to_recip_symop(char *symchs_begin, char *symchs_end, const float rsm[4][4]);
+char *mat4_to_recip_symop(char *symchs_begin, char *symchs_end,
+                          const float rsm[4][4]);
 
 #ifdef __cplusplus
 }
-}
+}  // namespace CCP4
 #endif
 
-#endif  /* __CCP4_Parser__ */
+#endif /* __CCP4_Parser__ */

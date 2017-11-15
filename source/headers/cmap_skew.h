@@ -29,4 +29,4 @@ int skew_set(const CMMFile_Skew *skew);
 }
 #endif
 
-#endif    /* __GUARD_MAPLIB_SKEW */
+#endif /* __GUARD_MAPLIB_SKEW */

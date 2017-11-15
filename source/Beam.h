@@ -17,25 +17,28 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 #ifndef __cppxfel__Beam__
 #define __cppxfel__Beam__
 
 #include <stdio.h>
 #include "parameters.h"
 
-class Beam
-{
-private:
+class Beam {
+ private:
+ public:
+  Beam();
 
-public:
-    Beam();
+  virtual double integralBetweenEwaldWavelengths(double lowWavelength,
+                                                 double highWavelength) {
+    return 0;
+  };
+  virtual double getNominalWavelength() { return 0; };
 
-    virtual double integralBetweenEwaldWavelengths(double lowWavelength, double highWavelength) { return 0;};
-    virtual double getNominalWavelength() { return 0;};
-
-    virtual void addParameters(RefinementStrategyPtr map) {};
-    virtual bool nonZeroPartialityExpected(double lowWavelength, double highWavelength) { return false;};
+  virtual void addParameters(RefinementStrategyPtr map){};
+  virtual bool nonZeroPartialityExpected(double lowWavelength,
+                                         double highWavelength) {
+    return false;
+  };
 };
 
 #endif /* defined(__cppxfel__Beam__) */

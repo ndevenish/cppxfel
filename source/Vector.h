@@ -9,10 +9,9 @@
 #define VECTOR_H_
 #include <vector>
 
+#include <float.h>
 #include <boost/tuple/tuple.hpp>
 #include "parameters.h"
-#include <float.h>
-
 
 vec reverseVector(vec vec1);
 bool vectors_are_equal(vec vec1, vec vec2);
@@ -34,8 +33,8 @@ void multiply_vector(vec *vec, double mult);
 void scale_vector_to_distance(vec *vec, double new_distance);
 MatrixPtr rotation_between_vectors(vec vec1, vec vec2);
 
-MatrixPtr closest_rotmat_analytical(vec vec1, vec vec2,
-                                    vec axis, double *resultantAngle, bool addPi = true);
+MatrixPtr closest_rotmat_analytical(vec vec1, vec vec2, vec axis,
+                                    double *resultantAngle, bool addPi = true);
 
 double getEwaldSphereNoMatrix(vec index);
 double cdf(double x, double mean, double sigma);
@@ -44,32 +43,36 @@ double normal_distribution(double x, double mean, double sigma);
 double super_gaussian(double x, double mean, double sigma_0, double exponent);
 
 double minimizeParam(double &step, double &param, double (*score)(void *object),
-                         void *object);
-double minimizeParameter(double &step, double *param, double (*score)(void *object),
-                       void *object);
+                     void *object);
+double minimizeParameter(double &step, double *param,
+                         double (*score)(void *object), void *object);
 
 double sum(vector<double> values);
-void regression_line(vector<boost::tuple<double, double, double> > values, double &intercept, double &gradient);
-double correlation_between_vectors(vector<double> *vec1,
-                vector<double> *vec2, vector<double> *weights, int exclude);
-double correlation_between_vectors(vector<double> *vec1,
-                vector<double> *vec2, vector<double> *weights);
-double correlation_between_vectors(vector<double> *vec1,
-                vector<double> *vec2);
-double correlation_through_origin(vector<double> *vec1,
-                vector<double> *vec2, vector<double> *weights = NULL);
-double least_squares_between_vectors(vector<double> *vec1,
-                vector<double> *vec2, double slope);
-double gradient_between_vectors(vector<double> *vec1,
-                vector<double> *vec2);
+void regression_line(vector<boost::tuple<double, double, double> > values,
+                     double &intercept, double &gradient);
+double correlation_between_vectors(vector<double> *vec1, vector<double> *vec2,
+                                   vector<double> *weights, int exclude);
+double correlation_between_vectors(vector<double> *vec1, vector<double> *vec2,
+                                   vector<double> *weights);
+double correlation_between_vectors(vector<double> *vec1, vector<double> *vec2);
+double correlation_through_origin(vector<double> *vec1, vector<double> *vec2,
+                                  vector<double> *weights = NULL);
+double least_squares_between_vectors(vector<double> *vec1, vector<double> *vec2,
+                                     double slope);
+double gradient_between_vectors(vector<double> *vec1, vector<double> *vec2);
 double weighted_mean(vector<double> *means, vector<double> *weights = NULL);
 double median(vector<double> *means);
-void histogram_gaussian(vector<double> *means, vector<int> *freq, double &mean, double &stdev);
-double standard_deviation(vector<double> *values, vector<double> *weights = NULL);
-double r_factor_between_vectors(vector<double> *vec1,
-                vector<double> *vec2, vector<double> *weights = NULL, double scale = 1);
-double standard_deviation(vector<double> *values, vector<double> *weights, double mean);
-double bitty_deviation(vector<double> *values, vector<double> *weights, double centre = FLT_MAX);
+void histogram_gaussian(vector<double> *means, vector<int> *freq, double &mean,
+                        double &stdev);
+double standard_deviation(vector<double> *values,
+                          vector<double> *weights = NULL);
+double r_factor_between_vectors(vector<double> *vec1, vector<double> *vec2,
+                                vector<double> *weights = NULL,
+                                double scale = 1);
+double standard_deviation(vector<double> *values, vector<double> *weights,
+                          double mean);
+double bitty_deviation(vector<double> *values, vector<double> *weights,
+                       double centre = FLT_MAX);
 void printDesc(vec hkl);
 std::string desc(vec hkl);
 std::string prettyDesc(vec hkl);
@@ -78,6 +81,7 @@ void closest_major_axis(vec &a_vec);
 double cartesian_to_distance(double x, double y);
 double cartesian_to_angle(double x, double y);
 std::map<double, int> histogram(std::vector<double> values, double step);
-void histogramCSV(std::string filename, std::map<double, int> map1, std::map<double, int> map2);
+void histogramCSV(std::string filename, std::map<double, int> map1,
+                  std::map<double, int> map2);
 
 #endif /* VECTOR_H_ */

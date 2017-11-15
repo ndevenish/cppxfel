@@ -21,7 +21,8 @@
  *
  * @verbatim
 
-<!-- ::INDEX_INFO::CMTZ library::Library::::C/C++ Software Library for MTZ files:::::::: -->
+<!-- ::INDEX_INFO::CMTZ library::Library::::C/C++ Software Library for MTZ
+files:::::::: -->
 
    @endverbatim
  *
@@ -53,7 +54,8 @@ Information on the data structure is given in mtzdata.h
  *  @section cmtz_princ_func Principal Functions
  *  @subsection cmtz_reading Reading MTZ files
 
-Start by looking at <tt>MtzGet</tt> and <tt>ccp4_lrrefl</tt> / <tt>ccp4_lrreff</tt>.
+Start by looking at <tt>MtzGet</tt> and <tt>ccp4_lrrefl</tt> /
+<tt>ccp4_lrreff</tt>.
 
  *  @subsection cmtz_writing Writing MTZ files
 
@@ -109,7 +111,7 @@ See examples on <a href="ftp://ftp.ccp4.ac.uk/pub/mdw/cmtz">ftp area</a>
 /* defines CCP4::CCP4File */
 #include "ccp4_utils.h"
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 namespace CMtz {
 extern "C" {
 typedef CCP4::CCP4File CCP4File;
@@ -139,7 +141,8 @@ MTZ *MtzGet(const char *logname, int read_refs);
  *        variation within a single crystal.
  * @return Pointer to MTZ struct
  */
-MTZ *MtzGetUserCellTolerance(const char *logname, int read_refs, const double cell_tolerance);
+MTZ *MtzGetUserCellTolerance(const char *logname, int read_refs,
+                             const double cell_tolerance);
 
 /** Reads reflection data from MTZ file.
  * @param filein pointer to input file
@@ -308,7 +311,8 @@ MTZXTAL **MtzXtals(MTZ *mtz);
 
 /** Return pointer to the ixtal'th crystal.
  * @param mtz pointer to MTZ struct
- * @param ixtal number of the particular crystal (ixtal = 0 ... MtzNxtal(xtal) -1
+ * @param ixtal number of the particular crystal (ixtal = 0 ... MtzNxtal(xtal)
+ * -1
  * @return pointer to the specified crystal
  */
 MTZXTAL *MtzIxtal(const MTZ *mtz, const int ixtal);
@@ -336,7 +340,7 @@ MTZXTAL *MtzXtalLookup(const MTZ *mtz, const char *label);
  * @return Pointer to crystal.
  */
 MTZXTAL *MtzAddXtal(MTZ *mtz, const char *xname, const char *pname,
-                  const float cell[6]);
+                    const float cell[6]);
 
 /** For a given crystal, return number of datasets in that crystal.
  * @param xtal pointer to the crystal struct
@@ -360,7 +364,8 @@ MTZSET **MtzSetsInXtal(MTZXTAL *xtal);
 /** For a given crystal, return pointer to the iset'th dataset
  * in that crystal.
  * @param xtal pointer to the crystal struct
- * @param iset number of the particular dataset (iset = 0 ... MtzNsetsInXtal(xtal) -1
+ * @param iset number of the particular dataset (iset = 0 ...
+ * MtzNsetsInXtal(xtal) -1
  * @return pointer to specified dataset
  */
 MTZSET *MtzIsetInXtal(const MTZXTAL *xtal, const int iset);
@@ -414,7 +419,7 @@ MTZSET *MtzSetLookup(const MTZ *mtz, const char *label);
  * @return pointer to set
  */
 MTZSET *MtzAddDataset(MTZ *mtz, MTZXTAL *xtl, const char *dname,
-                    const float wavelength);
+                      const float wavelength);
 
 /** For a given dataset, return number of columns in that dataset.
  * This is simply set->ncol and so includes all columns irrespective
@@ -470,7 +475,7 @@ MTZCOL *MtzIcolInSet(const MTZSET *set, const int icol);
  * @return pointer to column
  */
 MTZCOL *MtzAddColumn(MTZ *mtz, MTZSET *set, const char *label,
-                   const char *type);
+                     const char *type);
 
 /** Assigns HKL columns to the base dataset.
  * @param mtz pointer to MTZ struct
@@ -491,7 +496,7 @@ int MtzAssignHKLtoBase(MTZ *mtz);
  * @return 1 on success, 0 on failure
  */
 int MtzAssignColumn(MTZ *mtz, MTZCOL *col, const char crystal_name[],
-             const char dataset_name[]);
+                    const char dataset_name[]);
 
 /** Toggle active flag of column. A value of 0 means inactive and will
  * not be written out, whereas a value of 1 means active and will
@@ -507,7 +512,7 @@ int MtzToggleColumn(MTZCOL *col);
  * @return pointer to set containing column of interest, or NULL
  *   if "col" is not contained in "mtz".
  */
-MTZSET  *MtzColSet(const MTZ *mtz, const MTZCOL *col);
+MTZSET *MtzColSet(const MTZ *mtz, const MTZCOL *col);
 
 /** Get the number of columns in the MTZ data structure.
  * @param mtz pointer to MTZ struct
@@ -579,7 +584,8 @@ void MtzDebugHierarchy(const MTZ *mtz);
  * @param csetid List of dataset IDs (output).
  * @return number of columns in current structure.
  */
-int MtzListColumn(const MTZ *mtz, char clabs[][31], char ctyps[][3], int csetid[]);
+int MtzListColumn(const MTZ *mtz, char clabs[][31], char ctyps[][3],
+                  int csetid[]);
 
 /** List of column information from input file: label, type, dataset.
  * @param mtz pointer to MTZ struct
@@ -588,7 +594,8 @@ int MtzListColumn(const MTZ *mtz, char clabs[][31], char ctyps[][3], int csetid[
  * @param csetid List of dataset IDs (output).
  * @return number of columns in input file.
  */
-int MtzListInputColumn(const MTZ *mtz, char clabs[][31], char ctyps[][3], int csetid[]);
+int MtzListInputColumn(const MTZ *mtz, char clabs[][31], char ctyps[][3],
+                       int csetid[]);
 
 /**** helper functions ****/
 
@@ -693,7 +700,7 @@ int ccp4_lrcell(const MTZXTAL *xtl, float cell[]);
  * @return Spacegroup number.
  */
 int ccp4_lrsymi(const MTZ *mtz, int *nsympx, char *ltypex, int *nspgrx,
-       char *spgrnx, char *pgnamx);
+                char *spgrnx, char *pgnamx);
 
 /** Get symmetry matrices from MTZ structure. Note: ordering of matrices
  * in rsymx was changed in April 2004.
@@ -716,14 +723,14 @@ int ccp4_lrsymm(const MTZ *mtz, int *nsymx, float rsymx[192][4][4]);
  * @return Number of program labels matched, or -1 if there was an error.
  */
 int MtzParseLabin(char *labin_line, const char prog_labels[][31],
-           const int nlprgi, char user_labels[][2][31]);
+                  const int nlprgi, char user_labels[][2][31]);
 
 /** Finds columns in an MTZ struct according to column labels. Column types
  *  are checked for agreement between requested type (in argument 'types')
  *  and file type. If requested type is blank, file type is returned in
  *  argument 'types'. Note, this function is different from Fortranic LRASSN,
- *  in that any conversion from program labels to user labels should have been done
- *  previously.
+ *  in that any conversion from program labels to user labels should have been
+ * done previously.
  * @param mtz Pointer to MTZ struct.
  * @param labels Input array of column labels to be found in MTZ struct.
  * @param nlabels Number of columns to be found.
@@ -732,7 +739,7 @@ int MtzParseLabin(char *labin_line, const char prog_labels[][31],
  *  NULL if column not found.
  */
 MTZCOL **ccp4_lrassn(const MTZ *mtz, const char labels[][31], const int nlabels,
-                char types[][3]);
+                     char types[][3]);
 
 /** Report information on a particular dataset. This represents the
  * collection of data held in one series of dataset records in the MTZ header.
@@ -748,8 +755,8 @@ MTZCOL **ccp4_lrassn(const MTZ *mtz, const char labels[][31], const int nlabels,
  * @return 1 on success, 0 on failure
  */
 int ccp4_lridx(const MTZ *mtz, const MTZSET *set, char crystal_name[64],
-            char dataset_name[64], char project_name[64], int *isets,
-            float datcell[6], float *datwave);
+               char dataset_name[64], char project_name[64], int *isets,
+               float datcell[6], float *datwave);
 
 /** Returns iref'th reflection from file held in MTZ struct mtz. Returns
  * data for all columns held in input file, in the order that they are
@@ -761,12 +768,13 @@ int ccp4_lridx(const MTZ *mtz, const MTZSET *set, char crystal_name[64],
  * @param mtz pointer to MTZ struct
  * @param resol resolution of reflection (output).
  * @param adata array of requested values (output).
- * @param logmss array of flags for missing data (output). A value of 1 indicates
- * a Missing Number Flag, and a value of 0 indicates usable data.
+ * @param logmss array of flags for missing data (output). A value of 1
+ * indicates a Missing Number Flag, and a value of 0 indicates usable data.
  * @param iref index of requested reflection (starting at 1).
  * @return 1 if past last reflection, else 0
  */
-int ccp4_lrrefl(const MTZ *mtz, float *resol, float adata[], int logmss[], int iref);
+int ccp4_lrrefl(const MTZ *mtz, float *resol, float adata[], int logmss[],
+                int iref);
 
 /** Returns iref'th reflection from file held in MTZ struct mtz. Returns
  * data for certain columns held in input file, as specified by the
@@ -777,8 +785,8 @@ int ccp4_lrrefl(const MTZ *mtz, float *resol, float adata[], int logmss[], int i
  * @param mtz pointer to MTZ struct
  * @param resol resolution of reflection (output).
  * @param adata array of requested values (output).
- * @param logmss array of flags for missing data (output). A value of 1 indicates
- * a Missing Number Flag, and a value of 0 indicates usable data.
+ * @param logmss array of flags for missing data (output). A value of 1
+ * indicates a Missing Number Flag, and a value of 0 indicates usable data.
  * @param lookup array of pointers to requested columns
  * @param ncols number of requested columns
  * @param iref index of requested reflection (starting at 1).
@@ -852,7 +860,8 @@ int MtzSetSortOrder(MTZ *mtz, MTZCOL *colsort[5]);
  * @param nlines number of lines to be added
  * @return total number of history lines
  */
-int MtzAddHistory(MTZ *mtz, const char history[][MTZRECORDLENGTH], const int nlines);
+int MtzAddHistory(MTZ *mtz, const char history[][MTZRECORDLENGTH],
+                  const int nlines);
 
 /** Write or update symmetry information for MTZ header. This provides support
  * for the Fortran API, and is not particularly convenient for C programs.
@@ -885,7 +894,7 @@ int ccp4_lwsymm(MTZ *mtz, int nsymx, int nsympx, float rsymx[192][4][4],
  * @return Array of pointers to columns in MTZ struct.
  */
 MTZCOL **ccp4_lwassn(MTZ *mtz, const char labels[][31], const int nlabels,
-             const char types[][3], const int iappnd);
+                     const char types[][3], const int iappnd);
 
 /* Add or update a dataset in the MTZ structure. If the crystal name is
  * not recognised, then a new crystal is created containing a single
@@ -903,9 +912,9 @@ MTZCOL **ccp4_lwassn(MTZ *mtz, const char labels[][31], const int nlabels,
  * @param datwave X-ray wavelength associated with dataset.
  * @return 1 on success, 0 on failure
  */
-int ccp4_lwidx(MTZ *mtz, const char crystal_name[],  const char dataset_name[],
-        const char project_name[], const float datcell[6], const float *datwave);
-
+int ccp4_lwidx(MTZ *mtz, const char crystal_name[], const char dataset_name[],
+               const char project_name[], const float datcell[6],
+               const float *datwave);
 
 /** Function to output reflection values for iref'th reflection.
  * The reflection values are provided in an array "adata". The value
@@ -924,8 +933,8 @@ int ccp4_lwidx(MTZ *mtz, const char crystal_name[],  const char dataset_name[],
  * @param iref Reflection number such that 1st reflection is iref=1.
  * @return 1 on success, 0 on failure
  */
-int ccp4_lwrefl(MTZ *mtz, const float adata[], MTZCOL *lookup[],
-                 const int ncol, const int iref);
+int ccp4_lwrefl(MTZ *mtz, const float adata[], MTZCOL *lookup[], const int ncol,
+                const int iref);
 
 /** Write new batch information to 'batch' or if 'batch' is NULL create
  * new batch header with batch number 'batno'. If you try to create more
@@ -940,13 +949,16 @@ int ccp4_lwrefl(MTZ *mtz, const float adata[], MTZCOL *lookup[],
  * @param charbuf pointer to character batch array
  * @return 1 on success, 0 on failure
  */
-int ccp4_lwbat(MTZ *mtz, MTZBAT *batch, const int batno, const float *buf, const char *charbuf);
+int ccp4_lwbat(MTZ *mtz, MTZBAT *batch, const int batno, const float *buf,
+               const char *charbuf);
 
-int ccp4_lwbsetid(MTZ *mtz, MTZBAT *batch, const char xname[], const char dname[]);
+int ccp4_lwbsetid(MTZ *mtz, MTZBAT *batch, const char xname[],
+                  const char dname[]);
 
 /* -- Below here there are no implementations -- */
 
-/* COMPLEX HLToSF(float hla, float hlb, float hlc, float hld, BOOLEAN centric); */
+/* COMPLEX HLToSF(float hla, float hlb, float hlc, float hld, BOOLEAN centric);
+ */
 /* Returns the mean structure factor as a complex number from a structure
    factor probability distribution described by Hendrickson/Lattman
    coefficients. If `centric == TRUE`, the coefficients describe a centric
@@ -1001,6 +1013,7 @@ int ccp4_lwbsetid(MTZ *mtz, MTZBAT *batch, const char xname[], const char dname[
    `centric == TRUE`, the coefficients describe a centric distribution. */
 
 #ifdef __cplusplus
-} }
+}
+}  // namespace CMtz
 #endif
 #endif

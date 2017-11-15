@@ -29,22 +29,22 @@
 /* rcsidhe[] = "$Id: ccp4_errno.h,v 1.10 2008/06/18 16:55:56 mdw Exp $" */
 
 #ifndef CCP4_ERRSYSTEM
-#define CCP4_ERRSYSTEM(x) (((x)&0xfff)<<24)
+#define CCP4_ERRSYSTEM(x) (((x)&0xfff) << 24)
 #endif
 #ifndef CCP4_ERRLEVEL
-#define CCP4_ERRLEVEL(x)  (((x)&0xf)<<16)
+#define CCP4_ERRLEVEL(x) (((x)&0xf) << 16)
 #endif
 #ifndef CCP4_ERRSETLEVEL
-#define CCP4_ERRSETLEVEL(y,x) ((y) & (~CCP4_ERRLEVEL(0xf)) | CCP4_ERRLEVEL(x)))
+#define CCP4_ERRSETLEVEL(y, x) ((y) & (~CCP4_ERRLEVEL(0xf)) | CCP4_ERRLEVEL(x)))
 #endif
 #ifndef CCP4_ERRGETSYS
-#define CCP4_ERRGETSYS(x)   (((x)>>24)&0xfff)
+#define CCP4_ERRGETSYS(x) (((x) >> 24) & 0xfff)
 #endif
 #ifndef CCP4_ERRGETLEVEL
-#define CCP4_ERRGETLEVEL(x) (((x)>>16)&0xf)
+#define CCP4_ERRGETLEVEL(x) (((x) >> 16) & 0xf)
 #endif
 #ifndef CCP4_ERRGETCODE
-#define CCP4_ERRGETCODE(x)  ((x)&0xffff)
+#define CCP4_ERRGETCODE(x) ((x)&0xffff)
 #endif
 
 #define CCP4_ERR_SYS CCP4_ERRSYSTEM(0x0)
@@ -57,7 +57,7 @@
 #define CCP4_ERR_SYM CCP4_ERRSYSTEM(0x7)
 #define CCP4_ERR_GEN CCP4_ERRSYSTEM(0x8)
 
-#define CCP4_COUNT(x) sizeof(x)/sizeof(x[0])
+#define CCP4_COUNT(x) sizeof(x) / sizeof(x[0])
 
 /** @global ccp4_errno: global variable that stores the error last error
  *           code from the ccp4 libraries
@@ -107,7 +107,7 @@ extern "C" {
  * @param message (const char *)
  * @return void
  */
-void ccp4_error( const char *);
+void ccp4_error(const char *);
 
 /** Obtain character string based upon error code.
  *  Typical use ccp4_strerror(ccp4_errno)
@@ -116,7 +116,7 @@ void ccp4_error( const char *);
  * @param error code (int)
  * @return const pointer to error message (const char *)
  */
-const char *ccp4_strerror( int);
+const char *ccp4_strerror(int);
 
 /** Wrapper for ccp4_error which also calls exit(1)
  * @param message (const char *)
@@ -159,7 +159,7 @@ int cfile_perror(const char *);
 
 #ifdef __cplusplus
 }
-}
+}  // namespace CCP4
 #endif
 
-#endif  /*!CCP4_ERROR_GUARD */
+#endif /*!CCP4_ERROR_GUARD */

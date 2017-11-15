@@ -10,121 +10,120 @@
 #define __RaddoseViewer__Matrix__
 
 #include <iostream>
-#include "Vector.h"
-#include "parameters.h"
-#include "csymlib.h"
 #include "LoggableObject.h"
+#include "Vector.h"
+#include "csymlib.h"
+#include "parameters.h"
 
-class Matrix
-{
-private:
-    class Proxy
-    {
-        Matrix &a;
-        int idx;
-    public:
-        Proxy(Matrix &a, int idx) : a(a), idx(idx) {}
-        double operator= (double x) { a.components[idx] = x; return a.components[idx]; }
-        double operator* (double x) { return a.components[idx] * x; }
-        double operator* (Proxy x) { return a.components[idx] * x.a.components[idx]; }
-        double operator*= (double x) { a.components[idx] *= x; return a.components[idx]; }
-        double operator*= (Proxy x) { a.components[idx] *= x.a.components[idx]; return a.components[idx]; }
+class Matrix {
+ private:
+  class Proxy {
+    Matrix &a;
+    int idx;
 
-    };
-
-    MatrixPtr unitCell;
-    MatrixPtr rotation;
-    double eulerA;
-    double eulerB;
-    double eulerC;
-
-    static MatrixPtr identityMatrix;
-public:
-    double components[16];
-
-    // for SPEEDY CALCULATIONS when you need an identity pointer. Don't change it or you'll mess everyone else up.
-    static MatrixPtr getIdentityPtr()
-    {
-        return identityMatrix;
+   public:
+    Proxy(Matrix &a, int idx) : a(a), idx(idx) {}
+    double operator=(double x) {
+      a.components[idx] = x;
+      return a.components[idx];
     }
-
-    double trace();
-    bool isIdentity();
-    void multiply(double scalar);
-    void subtract(MatrixPtr secondMatrix);
-    Matrix(void);
-    Matrix(double *components);
-    MatrixPtr copy(void);
-    void copyComponents(MatrixPtr mat2);
-    void printDescription(bool detailed = false);
-    std::string description(bool detailed = false, bool submatrix = false);
-    Matrix inverse2DMatrix();
-    MatrixPtr inverse3DMatrix();
-    static MatrixPtr matFromCCP4(CSym::ccp4_symop *symop);
-    MatrixPtr transpose();
-        static void symmetryOperatorsForSpaceGroup(std::vector<MatrixPtr> *matrices, CSym::CCP4SPG *spaceGroup, std::vector<double> cell);
-
-    void rotate(double alpha, double beta, double gamma);
-    void rotateRoundUnitVector(vec unitVector, double radians);
-    void multiply(Matrix &b);
-    void multiplyVector(vec *vector);
-    void preMultiply(Matrix &b);
-    void scale(double scale);
-    void scale(double a, double b, double c);
-    void identity(void);
-        static MatrixPtr matrixFromUnitCell(std::vector<double> &unitCell);
-    void changeOrientationMatrixDimensions(std::vector<double> cell);
-    void setComplexMatrix(MatrixPtr unitCell, MatrixPtr rotation);
-    void maxMillers(int (&millers)[3], double maxResolution);
-    static MatrixPtr randomOrientation();
-    static MatrixPtr randomOrientationMatrix();
-;
-    void rotate2D(double angle);
-
-    double getEwaldSphereNoMatrix(vec index);
-
-    void eulerAngles(double *theta, double *phi, double *psi, bool force = false);
-    double similarityToRotationMatrix(MatrixPtr mat2, double tolerance, bool force = false);
-    void unitCellLengths(double *lengths);
-    double *array();
-    void recalculateOrientationMatrix();
-    std::string summary();
-    void setIdentity();
-    bool writeToHdf5(std::string address);
-
-    bool isComplex()
-    {
-        if (unitCell)
-            return true;
-
-        return false;
+    double operator*(double x) { return a.components[idx] * x; }
+    double operator*(Proxy x) {
+      return a.components[idx] * x.a.components[idx];
     }
-
-    MatrixPtr getRotation()
-    {
-        return rotation;
+    double operator*=(double x) {
+      a.components[idx] *= x;
+      return a.components[idx];
     }
-
-    MatrixPtr getUnitCell()
-    {
-        return unitCell;
+    double operator*=(Proxy x) {
+      a.components[idx] *= x.a.components[idx];
+      return a.components[idx];
     }
+  };
 
-        void setUnitCell(MatrixPtr newMat)
-        {
-                unitCell = newMat;
-        }
+  MatrixPtr unitCell;
+  MatrixPtr rotation;
+  double eulerA;
+  double eulerB;
+  double eulerC;
 
-    void setComponents(double *newComponents)
-    {
-        memcpy(components, newComponents, sizeof(double) * 16);
-    }
+  static MatrixPtr identityMatrix;
 
-    double determinant();
-    Matrix operator*=(Matrix &b);
-    Matrix operator*(Matrix &b);
-    Matrix testMultiply(Matrix &b);
-    double &operator[](int index) {return components[index]; };
+ public:
+  double components[16];
+
+  // for SPEEDY CALCULATIONS when you need an identity pointer. Don't change it
+  // or you'll mess everyone else up.
+  static MatrixPtr getIdentityPtr() { return identityMatrix; }
+
+  double trace();
+  bool isIdentity();
+  void multiply(double scalar);
+  void subtract(MatrixPtr secondMatrix);
+  Matrix(void);
+  Matrix(double *components);
+  MatrixPtr copy(void);
+  void copyComponents(MatrixPtr mat2);
+  void printDescription(bool detailed = false);
+  std::string description(bool detailed = false, bool submatrix = false);
+  Matrix inverse2DMatrix();
+  MatrixPtr inverse3DMatrix();
+  static MatrixPtr matFromCCP4(CSym::ccp4_symop *symop);
+  MatrixPtr transpose();
+  static void symmetryOperatorsForSpaceGroup(std::vector<MatrixPtr> *matrices,
+                                             CSym::CCP4SPG *spaceGroup,
+                                             std::vector<double> cell);
+
+  void rotate(double alpha, double beta, double gamma);
+  void rotateRoundUnitVector(vec unitVector, double radians);
+  void multiply(Matrix &b);
+  void multiplyVector(vec *vector);
+  void preMultiply(Matrix &b);
+  void scale(double scale);
+  void scale(double a, double b, double c);
+  void identity(void);
+  static MatrixPtr matrixFromUnitCell(std::vector<double> &unitCell);
+  void changeOrientationMatrixDimensions(std::vector<double> cell);
+  void setComplexMatrix(MatrixPtr unitCell, MatrixPtr rotation);
+  void maxMillers(int (&millers)[3], double maxResolution);
+  static MatrixPtr randomOrientation();
+  static MatrixPtr randomOrientationMatrix();
+  ;
+  void rotate2D(double angle);
+
+  double getEwaldSphereNoMatrix(vec index);
+
+  void eulerAngles(double *theta, double *phi, double *psi, bool force = false);
+  double similarityToRotationMatrix(MatrixPtr mat2, double tolerance,
+                                    bool force = false);
+  void unitCellLengths(double *lengths);
+  double *array();
+  void recalculateOrientationMatrix();
+  std::string summary();
+  void setIdentity();
+  bool writeToHdf5(std::string address);
+
+  bool isComplex() {
+    if (unitCell) return true;
+
+    return false;
+  }
+
+  MatrixPtr getRotation() { return rotation; }
+
+  MatrixPtr getUnitCell() { return unitCell; }
+
+  void setUnitCell(MatrixPtr newMat) { unitCell = newMat; }
+
+  void setComponents(double *newComponents) {
+    memcpy(components, newComponents, sizeof(double) * 16);
+  }
+
+  double determinant();
+  Matrix operator*=(Matrix &b);
+  Matrix operator*(Matrix &b);
+  Matrix testMultiply(Matrix &b);
+  double &operator[](int index) { return components[index]; };
 };
 
 #endif /* defined(__RaddoseViewer__Matrix__) */

@@ -3,161 +3,126 @@
 //  cppxfel
 //
 //  Created by Helen Ginn on 14/10/2015.
-//  Copyright (c) 2015 Division of Structural Biology Oxford. All rights reserved.
+//  Copyright (c) 2015 Division of Structural Biology Oxford. All rights
+//  reserved.
 //
 
 #ifndef __cppxfel__IndexManager__
 #define __cppxfel__IndexManager__
 
-#include "cmtzlib.h"
-#include "csymlib.h"
 #include <stdio.h>
+#include <map>
+#include <mutex>
 #include <set>
 #include <vector>
-#include <map>
+#include "Detector.h"
 #include "Image.h"
-#include "Vector.h"
-#include "parameters.h"
+#include "LoggableObject.h"
 #include "Logger.h"
 #include "Reflection.h"
-#include "LoggableObject.h"
-#include <mutex>
-#include "Detector.h"
+#include "Vector.h"
+#include "cmtzlib.h"
+#include "csymlib.h"
+#include "parameters.h"
 
-class IndexManager : LoggableObject, public boost::enable_shared_from_this<IndexManager>
-{
-protected:
-        struct SpotVectorPair
-        {
-                SpotVectorPtr vecs[3];
-        };
+class IndexManager : LoggableObject,
+                     public boost::enable_shared_from_this<IndexManager> {
+ protected:
+  struct SpotVectorPair {
+    SpotVectorPtr vecs[3];
+  };
 
-    UnitCellLatticePtr lattice;
-    std::vector<ImagePtr> images;
-    std::vector<ImagePtr> mergeImages;
-        std::set<SpotPtr> goodSpots;
-    std::vector<SpotVectorPtr> goodVectors;
-        std::vector<SpotVectorPair> goodVectorPairs;
-    DetectorWeakPtr _activeDetector;
-    double interPanelDistance;
-    double intraPanelDistance;
-    int spaceGroupNum;
-    std::vector<MtzPtr> mtzs;
-    double _maxFrequency;
-    ImagePtr getNextImage();
-    int nextImage;
-    std::mutex indexMutex;
-    PseudoScoreType scoreType;
-    double proportionDistance;
-    CSVPtr angleCSV;
-    bool _canLockVectors;
-    static int _cycleNum;
-    PseudoScoreWeightingAxis _axisWeighting;
+  UnitCellLatticePtr lattice;
+  std::vector<ImagePtr> images;
+  std::vector<ImagePtr> mergeImages;
+  std::set<SpotPtr> goodSpots;
+  std::vector<SpotVectorPtr> goodVectors;
+  std::vector<SpotVectorPair> goodVectorPairs;
+  DetectorWeakPtr _activeDetector;
+  double interPanelDistance;
+  double intraPanelDistance;
+  int spaceGroupNum;
+  std::vector<MtzPtr> mtzs;
+  double _maxFrequency;
+  ImagePtr getNextImage();
+  int nextImage;
+  std::mutex indexMutex;
+  PseudoScoreType scoreType;
+  double proportionDistance;
+  CSVPtr angleCSV;
+  bool _canLockVectors;
+  static int _cycleNum;
+  PseudoScoreWeightingAxis _axisWeighting;
 
-    double maxMillerIndexTrial;
-    double maxDistance;
-    double smallestDistance;
-    double minReciprocalDistance;
-    PowderHistogram generatePowderHistogram(int intraPanel = -1, int perfectPadding = 0);
-    std::vector<VectorDistance> vectorDistances;
-    PseudoScoreType checkVectors(SpotVectorPtr vec1, SpotVectorPtr vec2);
+  double maxMillerIndexTrial;
+  double maxDistance;
+  double smallestDistance;
+  double minReciprocalDistance;
+  PowderHistogram generatePowderHistogram(int intraPanel = -1,
+                                          int perfectPadding = 0);
+  std::vector<VectorDistance> vectorDistances;
+  PseudoScoreType checkVectors(SpotVectorPtr vec1, SpotVectorPtr vec2);
 
-    DetectorPtr getActiveDetector()
-    {
-        DetectorPtr det = _activeDetector.lock();
-        if (!det)
-        {
-            det = Detector::getMaster();
-        }
-
-        return det;
+  DetectorPtr getActiveDetector() {
+    DetectorPtr det = _activeDetector.lock();
+    if (!det) {
+      det = Detector::getMaster();
     }
 
-public:
-    ImagePtr getImage(int i)
-    {
-        return images[i];
-    }
+    return det;
+  }
 
-    std::vector<MtzPtr> getMtzs()
-    {
-        return mtzs;
-    }
+ public:
+  ImagePtr getImage(int i) { return images[i]; }
 
-    void setMergeImages(std::vector<ImagePtr> otherImages)
-    {
-        mergeImages = otherImages;
-    }
+  std::vector<MtzPtr> getMtzs() { return mtzs; }
 
-    void setActiveDetector(DetectorPtr detector, GeometryScoreType type)
-    {
-        _activeDetector = detector;
-        detector->setIndexManager(shared_from_this(), type);
-                goodVectorPairs.clear();
-    }
+  void setMergeImages(std::vector<ImagePtr> otherImages) {
+    mergeImages = otherImages;
+  }
 
-    void setPseudoScoreType(PseudoScoreType type)
-    {
-        scoreType = type;
-    }
+  void setActiveDetector(DetectorPtr detector, GeometryScoreType type) {
+    _activeDetector = detector;
+    detector->setIndexManager(shared_from_this(), type);
+    goodVectorPairs.clear();
+  }
 
-    PseudoScoreType getPseudoScoreType()
-    {
-        return scoreType;
-    }
+  void setPseudoScoreType(PseudoScoreType type) { scoreType = type; }
 
-    UnitCellLatticePtr getLattice()
-    {
-        return lattice;
-    }
+  PseudoScoreType getPseudoScoreType() { return scoreType; }
 
-    void setProportionDistance(double newProp)
-    {
-        proportionDistance = newProp;
-    }
+  UnitCellLatticePtr getLattice() { return lattice; }
 
-        static double pseudoAngleScore(void *object);
-        static void indexThread(IndexManager *indexer, std::vector<MtzPtr> *mtzSubset, int offset);
-    void index();
-        bool writtenPDB;
-        CSVPtr pseudoAnglePDB(bool writePost = false);
-    void powderPattern(std::string csvName = "powder.csv", bool force = true);
+  void setProportionDistance(double newProp) { proportionDistance = newProp; }
 
-    void lockVectors()
-    {
-        _canLockVectors = true;
-    }
+  static double pseudoAngleScore(void *object);
+  static void indexThread(IndexManager *indexer, std::vector<MtzPtr> *mtzSubset,
+                          int offset);
+  void index();
+  bool writtenPDB;
+  CSVPtr pseudoAnglePDB(bool writePost = false);
+  void powderPattern(std::string csvName = "powder.csv", bool force = true);
 
-    void setAxisWeighting(PseudoScoreWeightingAxis weighting)
-    {
-        _axisWeighting = weighting;
-    }
+  void lockVectors() { _canLockVectors = true; }
 
-    static void setCycleNum(int num)
-    {
-        _cycleNum = num;
-    }
+  void setAxisWeighting(PseudoScoreWeightingAxis weighting) {
+    _axisWeighting = weighting;
+  }
 
-    static int getCycleNum()
-    {
-        return _cycleNum;
-    }
+  static void setCycleNum(int num) { _cycleNum = num; }
 
-    void resetMaxFrequency()
-    {
-        _maxFrequency = -1;
-    }
+  static int getCycleNum() { return _cycleNum; }
 
-    void clearGoodVectors()
-    {
-        goodVectors.clear();
-                goodVectorPairs.clear();
-    }
+  void resetMaxFrequency() { _maxFrequency = -1; }
 
-    void plotGoodVectors();
-    static double pseudoScore(void *object);
-    IndexManager(std::vector<ImagePtr>images);
+  void clearGoodVectors() {
+    goodVectors.clear();
+    goodVectorPairs.clear();
+  }
+
+  void plotGoodVectors();
+  static double pseudoScore(void *object);
+  IndexManager(std::vector<ImagePtr> images);
 };
-
 
 #endif /* defined(__cppxfel__IndexManager__) */

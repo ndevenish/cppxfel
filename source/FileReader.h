@@ -17,26 +17,26 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 #ifndef __GameDriver__FileReader__
 #define __GameDriver__FileReader__
 
 #include <iostream>
 #include <string>
-#include "parameters.h"
 #include <vector>
+#include "parameters.h"
 
-namespace FileReader
-{
-    std::string get_file_contents(const char *filename);
+namespace FileReader {
+std::string get_file_contents(const char *filename);
 
-    vector<std::string> split(const std::string s, const std::string &delim);
-    vector<std::string> &split(const std::string &s, char delim, vector<std::string> &elems);
-    vector<std::string> split(const std::string &s, char delim);
-    bool exists(const std::string& name);
+vector<std::string> split(const std::string s, const std::string &delim);
+vector<std::string> &split(const std::string &s, char delim,
+                           vector<std::string> &elems);
+vector<std::string> split(const std::string &s, char delim);
+bool exists(const std::string &name);
 
-    std::string addOutputDirectory(std::string filename);
-    int splitAtIndices(const std::string &s, vector<int> &positions, vector<std::string> &elems);
-};
+std::string addOutputDirectory(std::string filename);
+int splitAtIndices(const std::string &s, vector<int> &positions,
+                   vector<std::string> &elems);
+};  // namespace FileReader
 
 #endif /* defined(__GameDriver__FileReader__) */

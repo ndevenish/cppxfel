@@ -17,7 +17,6 @@
      GNU Lesser General Public License for more details.
 */
 
-
 /** @file ccp4_program.h
  *  Utilies to set and fetch program information.
  *  Peter Briggs CCP4 May 2001
@@ -34,7 +33,7 @@
 
 /* rcsidhp[] = "$Id: ccp4_program.h,v 1.36.2.5 2009/09/28 15:03:00 ccb Exp $" */
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 namespace CCP4 {
 extern "C" {
 #endif
@@ -43,9 +42,9 @@ extern "C" {
 #define CCP4_PATCH_LEVEL "6.1.3"
 
 /* Maximum lengths of strings holding program names and versions */
-#define MAXLEN_PROGNAME    80
+#define MAXLEN_PROGNAME 80
 #define MAXLEN_PROGVERSION 80
-#define MAXLEN_RCSDATE     80
+#define MAXLEN_RCSDATE 80
 
 /*------------------------------------------------------------------*/
 
@@ -107,7 +106,8 @@ int ccp4VerbosityLevel(int level);
  * @param message A message string equivalent to that used in ccperror
  * @return Result of the executed function (invoke mode)
  */
-int ccp4Callback(CCP4INTFUNCPTR mycallback, char *mode, int ierr, char *message);
+int ccp4Callback(CCP4INTFUNCPTR mycallback, char *mode, int ierr,
+                 char *message);
 
 /** Set a user-defined callback function
  * This is a wrapper to ccp4Callback - it stores a user-defined
@@ -132,7 +132,7 @@ int ccp4InvokeCallback(int ierr, char *message);
  * @param level Severity level supplied from ccperror
  * @param message Message text supplied from ccperror
  * @return Always returns 1
-*/
+ */
 int ccp4NullCallback(int level, char *message);
 
 /** Check existence of licence agreement
@@ -142,20 +142,22 @@ int ccp4NullCallback(int level, char *message);
 int ccp4_licence_exists(const char *name);
 
 /** Register or query html output level.
- * @param ihtml_in 0 = turn off html output, 1 = turn on html output, -1 = query existing value
+ * @param ihtml_in 0 = turn off html output, 1 = turn on html output, -1 = query
+ * existing value
  * @return 0 = no html output, 1 = html output
  */
 int html_log_output(int ihtml_in);
 
 /** Register or query summary output level.
- * @param isumm_in 0 = turn off summary output, 1 = turn on summary output, -1 = query existing value
+ * @param isumm_in 0 = turn off summary output, 1 = turn on summary output, -1 =
+ * query existing value
  * @return 0 = no summary output, 1 = summary output
  */
 int summary_output(int isumm_in);
 
 #ifdef __cplusplus
 }
-}
+}  // namespace CCP4
 #endif
 
-#endif   /* __CCP4Program__ */
+#endif /* __CCP4Program__ */

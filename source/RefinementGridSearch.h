@@ -26,42 +26,34 @@
 typedef std::vector<double> ParamList;
 typedef std::map<ParamList, double> ResultMap;
 
-class RefinementGridSearch : public RefinementStrategy
-{
-private:
-    int gridLength;
-    int gridJumps;
-    std::vector<double> orderedResults;
-    std::vector<ParamList> orderedParams;
+class RefinementGridSearch : public RefinementStrategy {
+ private:
+  int gridLength;
+  int gridJumps;
+  std::vector<double> orderedResults;
+  std::vector<ParamList> orderedParams;
 
-public:
-    RefinementGridSearch() : RefinementStrategy()
-    {
-                gridJumps = 8;
-        gridLength = 15;
-        cycleNum = 1;
-    };
+ public:
+  RefinementGridSearch() : RefinementStrategy() {
+    gridJumps = 8;
+    gridLength = 15;
+    cycleNum = 1;
+  };
 
-    void setGridLength(int length)
-    {
-        gridLength = length;
-    }
+  void setGridLength(int length) { gridLength = length; }
 
-    void setCheckGridNum(int _jumps)
-    {
-        gridJumps = _jumps;
-    }
+  void setCheckGridNum(int _jumps) { gridJumps = _jumps; }
 
-    ResultMap results;
-    void recursiveEvaluation(ParamList referenceList, ParamList workingList, ResultMap *results);
-        void assignInterpanelMinimum();
-    virtual void clearParameters()
-    {
-        orderedResults.clear();
-        orderedParams.clear();
-        RefinementStrategy::clearParameters();
-    }
-    virtual void refine();
+  ResultMap results;
+  void recursiveEvaluation(ParamList referenceList, ParamList workingList,
+                           ResultMap *results);
+  void assignInterpanelMinimum();
+  virtual void clearParameters() {
+    orderedResults.clear();
+    orderedParams.clear();
+    RefinementStrategy::clearParameters();
+  }
+  virtual void refine();
 };
 
 #endif /* defined(__cppxfel__RefinementGridSearch__) */

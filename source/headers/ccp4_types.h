@@ -30,12 +30,12 @@ typedef unsigned int uint32;
 typedef float float32;
 typedef unsigned char uint8;
 union float_uint_uchar {
-    float32 f;
-    uint32 i;
-    uint8 c[4];
-  };
+  float32 f;
+  uint32 i;
+  uint8 c[4];
+};
 
-typedef   char     *        pstr;
+typedef char* pstr;
 
 /* CCP4 library.c macro definitions */
 
@@ -44,35 +44,37 @@ typedef   char     *        pstr;
 #define TRUE 1
 #endif
 
-typedef struct { double r;             /* real component and */
-                 double i;             /* imaginary component of */
-               } COMPLEX;              /* a complex number */
+typedef struct {
+  double r; /* real component and */
+  double i; /* imaginary component of */
+} COMPLEX;  /* a complex number */
 
-typedef struct { double r;             /* radial and */
-                 double phi;           /* angular component of */
-               } POLAR;                /* a complex number */
+typedef struct {
+  double r;   /* radial and */
+  double phi; /* angular component of */
+} POLAR;      /* a complex number */
 
 /* some simple macros, which may exist anyway */
 #ifndef SQR
-#define SQR(x) ((x)*(x))
+#define SQR(x) ((x) * (x))
 #endif
 #ifndef DEGREE
-#define DEGREE(x) ((((x < 0)?(x)+2*M_PI:(x))*360)/(2*M_PI))
+#define DEGREE(x) ((((x < 0) ? (x) + 2 * M_PI : (x)) * 360) / (2 * M_PI))
 #endif
 #ifndef RADIAN
-#define RADIAN(x) ((((x<0)?(x)+360:(x))*2*M_PI)/360)
+#define RADIAN(x) ((((x < 0) ? (x) + 360 : (x)) * 2 * M_PI) / 360)
 #endif
 #ifndef MAX
-#define MAX(x, y) (((x)>(y))?(x):(y))
+#define MAX(x, y) (((x) > (y)) ? (x) : (y))
 #endif
 #ifndef MIN
-#define MIN(x, y) (((x)<(y))?(x):(y))
+#define MIN(x, y) (((x) < (y)) ? (x) : (y))
 #endif
 #ifndef ABS
-#define ABS(x) (((x)<0)?-(x):(x))
+#define ABS(x) (((x) < 0) ? -(x) : (x))
 #endif
 #ifndef SIGN
-#define SIGN(x) (((x)<0)?-1:1)
+#define SIGN(x) (((x) < 0) ? -1 : 1)
 #endif
 
-#endif   /* __CCP4_TYPES */
+#endif /* __CCP4_TYPES */

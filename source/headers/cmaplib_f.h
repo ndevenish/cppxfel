@@ -31,4 +31,4 @@ struct _IOConvMap {
   CMMFile *mapfile;
 };
 
-#endif  /*  __GUARD_MAPLIB_FORTRAN */
+#endif /*  __GUARD_MAPLIB_FORTRAN */

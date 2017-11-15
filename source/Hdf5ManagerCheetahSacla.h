@@ -21,35 +21,32 @@
 #define __cppxfel__Hdf5ManagerCheetahSacla__
 
 #include <stdio.h>
-#include "Hdf5ManagerCheetah.h"
 #include <iostream>
 #include <mutex>
+#include "Hdf5ManagerCheetah.h"
 
-class Hdf5ManagerCheetahSacla : public Hdf5ManagerCheetah
-{
-private:
-public:
-    static Hdf5ManagerCheetahPtr makeManager(std::string filename);
+class Hdf5ManagerCheetahSacla : public Hdf5ManagerCheetah {
+ private:
+ public:
+  static Hdf5ManagerCheetahPtr makeManager(std::string filename);
 
-    virtual bool dataForImage(std::string address, void **buffer, bool rawAddress = false);
-    virtual ~Hdf5ManagerCheetahSacla() {};
-    virtual double wavelengthForImage(std::string address, void **buffer);
-    virtual int hdf5MallocBytesForImage(std::string address, void **buffer);
-    virtual bool getImageSize(std::string address, int *dims);
+  virtual bool dataForImage(std::string address, void **buffer,
+                            bool rawAddress = false);
+  virtual ~Hdf5ManagerCheetahSacla(){};
+  virtual double wavelengthForImage(std::string address, void **buffer);
+  virtual int hdf5MallocBytesForImage(std::string address, void **buffer);
+  virtual bool getImageSize(std::string address, int *dims);
 
-    size_t bytesPerTypeForImageAddress(std::string address);
+  size_t bytesPerTypeForImageAddress(std::string address);
 
-    Hdf5ManagerCheetahSacla(std::string newName) : Hdf5ManagerCheetah(newName)
-    {
-        groupsWithPrefix(&imagePaths, "tag");
+  Hdf5ManagerCheetahSacla(std::string newName) : Hdf5ManagerCheetah(newName) {
+    groupsWithPrefix(&imagePaths, "tag");
 
-                for (int i = 0; i < imagePaths.size(); i++)
-        {
-            std::string last = lastComponent(imagePaths[i]);
-            imagePathMap[last] = i;
-        }
+    for (int i = 0; i < imagePaths.size(); i++) {
+      std::string last = lastComponent(imagePaths[i]);
+      imagePathMap[last] = i;
     }
-
+  }
 };
 
 #endif /* defined(__cppxfel__Hdf5ManagerCheetahSacla__) */

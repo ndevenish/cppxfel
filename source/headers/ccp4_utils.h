@@ -39,35 +39,35 @@ extern "C" {
  * Function prototypes                                                      *
  ****************************************************************************/
 
-size_t ccp4_utils_flength (char *, int);
+size_t ccp4_utils_flength(char *, int);
 
 int ccp4_utils_translate_mode_float(float *, const void *, int, int);
 
-void ccp4_utils_fatal (const char *);
+void ccp4_utils_fatal(const char *);
 
-void ccp4_utils_print (const char *message);
+void ccp4_utils_print(const char *message);
 
-int ccp4_utils_setenv (char *);
+int ccp4_utils_setenv(char *);
 
 /* turn on line buffering for stdout */
-int ccp4_utils_outbuf (void);
+int ccp4_utils_outbuf(void);
 
 /* turn off any buffering on stdin */
-int ccp4_utils_noinpbuf (void);
+int ccp4_utils_noinpbuf(void);
 
-union float_uint_uchar ccp4_nan ();
+union float_uint_uchar ccp4_nan();
 
-int ccp4_utils_isnan (const union float_uint_uchar *);
+int ccp4_utils_isnan(const union float_uint_uchar *);
 
-void ccp4_utils_bml (int, union float_uint_uchar *);
+void ccp4_utils_bml(int, union float_uint_uchar *);
 
-void ccp4_utils_wrg (int, union float_uint_uchar *, float *);
+void ccp4_utils_wrg(int, union float_uint_uchar *, float *);
 
-void ccp4_utils_hgetlimits (int *, float *);
+void ccp4_utils_hgetlimits(int *, float *);
 
-int ccp4_utils_mkdir (const char *, const char *);
+int ccp4_utils_mkdir(const char *, const char *);
 
-int ccp4_utils_chmod (const char *, const char *);
+int ccp4_utils_chmod(const char *, const char *);
 
 void *ccp4_utils_malloc(size_t);
 
@@ -87,26 +87,26 @@ char *ccp4_utils_extension(const char *filename);
 
 char *ccp4_utils_joinfilenames(char *dir, char *file);
 
-void ccp4_utils_idate (int *);
+void ccp4_utils_idate(int *);
 
 char *ccp4_utils_date(char *);
 
-void ccp4_utils_itime (int *);
+void ccp4_utils_itime(int *);
 
 char *ccp4_utils_time(char *);
 
-float ccp4_utils_etime (float *);
+float ccp4_utils_etime(float *);
 
-#if defined (_MSC_VER)
-double ccp4_erfc( double x );
+#if defined(_MSC_VER)
+double ccp4_erfc(double x);
 #endif
 
 /****************************************************************************
-*  End of prototypes                                                        *
-*****************************************************************************/
+ *  End of prototypes                                                        *
+ *****************************************************************************/
 #ifdef __cplusplus
 }
-}
+}  // namespace CCP4
 #endif
 
-#endif  /* __CCP4_UTILS */
+#endif /* __CCP4_UTILS */

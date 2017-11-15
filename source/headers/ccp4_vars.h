@@ -17,7 +17,7 @@
      GNU Lesser General Public License for more details.
 */
 /*
-*/
+ */
 
 /* Author: Martyn Winn */
 
@@ -43,4 +43,4 @@
 #define COLUMNLABEL "data::crystal_i::dataset_i::column_i::label"
 #define COLUMNTYPE "data::crystal_i::dataset_i::column_i::type"
 
-#endif  /*!__CCP4_VARS__ */
+#endif /*!__CCP4_VARS__ */

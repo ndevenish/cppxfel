@@ -32,60 +32,59 @@
 #define __CCP4_SPG__
 /* rcsidhsp[] = "$Id: ccp4_spg.h,v 1.8 2008/06/18 16:55:56 mdw Exp $" */
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 namespace CSym {
 extern "C" {
 #endif
 
 /* Kevin's symmetry operator */
 
-typedef struct ccp4_symop_
-{
+typedef struct ccp4_symop_ {
   float rot[3][3];
   float trn[3];
 } ccp4_symop;
 
-typedef struct ccp4_spacegroup_
-{
-  int spg_num;            /* true spacegroup number */
-  int spg_ccp4_num;       /* CCP4 spacegroup number */
-  char symbol_Hall[40];   /* Hall symbol */
-  char symbol_xHM[20];    /* Extended Hermann Mauguin symbol  */
-  char symbol_old[20];    /* old spacegroup name */
+typedef struct ccp4_spacegroup_ {
+  int spg_num;          /* true spacegroup number */
+  int spg_ccp4_num;     /* CCP4 spacegroup number */
+  char symbol_Hall[40]; /* Hall symbol */
+  char symbol_xHM[20];  /* Extended Hermann Mauguin symbol  */
+  char symbol_old[20];  /* old spacegroup name */
 
-  char point_group[20];   /* point group name */
-  char crystal[20];       /* crystal system */
+  char point_group[20]; /* point group name */
+  char crystal[20];     /* crystal system */
 
-  int nlaue;              /* CCP4 Laue class number, inferred from asu_descr */
-  char laue_name[20];     /* Laue class name */
-  int laue_sampling[3];   /* sampling factors for FFT */
+  int nlaue;            /* CCP4 Laue class number, inferred from asu_descr */
+  char laue_name[20];   /* Laue class name */
+  int laue_sampling[3]; /* sampling factors for FFT */
 
-  int npatt;              /* Patterson spacegroup number, inferred from asu_descr */
-  char patt_name[40];     /* Patterson spacegroup name */
+  int npatt;          /* Patterson spacegroup number, inferred from asu_descr */
+  char patt_name[40]; /* Patterson spacegroup name */
 
-  int nsymop;             /* total number of symmetry operations */
-  int nsymop_prim;        /* number of primitive symmetry operations */
-  ccp4_symop *symop;      /* symmetry matrices */
-  ccp4_symop *invsymop;   /* inverse symmetry matrices */
+  int nsymop;           /* total number of symmetry operations */
+  int nsymop_prim;      /* number of primitive symmetry operations */
+  ccp4_symop *symop;    /* symmetry matrices */
+  ccp4_symop *invsymop; /* inverse symmetry matrices */
 
-  float chb[3][3];        /* change of basis matrix from file */
+  float chb[3][3]; /* change of basis matrix from file */
 
-  char asu_descr[80];     /* asu description from file */
+  char asu_descr[80];                            /* asu description from file */
   int (*asufn)(const int, const int, const int); /* pointer to ASU function */
 
-  int centrics[12];       /* symop which generates centric zone, 0 if none */
-  int epsilon[13];        /* flag which epsilon zones are applicable */
+  int centrics[12]; /* symop which generates centric zone, 0 if none */
+  int epsilon[13];  /* flag which epsilon zones are applicable */
 
-  char mapasu_zero_descr[80];  /* origin-based map asu: description from file */
-  float mapasu_zero[3];   /* origin-based map asu: upper limits */
+  char mapasu_zero_descr[80]; /* origin-based map asu: description from file */
+  float mapasu_zero[3];       /* origin-based map asu: upper limits */
 
-  char mapasu_ccp4_descr[80];  /* CCP4 map asu: defaults to mapasu_zero */
-  float mapasu_ccp4[3];   /* CCP4 map asu: upper limits */
+  char mapasu_ccp4_descr[80]; /* CCP4 map asu: defaults to mapasu_zero */
+  float mapasu_ccp4[3];       /* CCP4 map asu: upper limits */
 
 } CCP4SPG;
 
 #ifdef __cplusplus
-} }
+}
+}  // namespace CSym
 #endif
 
-#endif  /*!__CCP4_SPG__ */
+#endif /*!__CCP4_SPG__ */

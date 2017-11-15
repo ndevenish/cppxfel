@@ -23,11 +23,10 @@
 extern "C" {
 #endif
 
-int stats_update(CMMFile_Stats *stats, void *section_begin,
-                         void *section_end);
+int stats_update(CMMFile_Stats *stats, void *section_begin, void *section_end);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif   /* __GUARD_MAPLIB_STATS */
+#endif /* __GUARD_MAPLIB_STATS */

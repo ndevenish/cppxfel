@@ -17,7 +17,6 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 #ifndef __cppxfel__FreeLattice__
 #define __cppxfel__FreeLattice__
 
@@ -25,32 +24,29 @@
 #include <vector>
 #include "parameters.h"
 
-class FreeLattice
-{
-protected:
-    std::vector<SpotVectorPtr> spotVectors;
-    std::vector<SpotVectorPtr> expandedSpotVectors;
-    std::vector<double> orderedDistances;
+class FreeLattice {
+ protected:
+  std::vector<SpotVectorPtr> spotVectors;
+  std::vector<SpotVectorPtr> expandedSpotVectors;
+  std::vector<double> orderedDistances;
 
-    void calculateExpandedVectors(bool originOnly);
-    void startingAngles(double a, double b, double c, double alpha, double beta, double gamma);
-public:
-    FreeLattice();
-    FreeLattice(double a, double b, double c, double alpha, double beta, double gamma);
+  void calculateExpandedVectors(bool originOnly);
+  void startingAngles(double a, double b, double c, double alpha, double beta,
+                      double gamma);
 
-    void addExpanded();
-    void powderPattern(bool originOnly = false, std::string filename = "latticePowder.csv");
-    void anglePattern(bool originOnly = false);
+ public:
+  FreeLattice();
+  FreeLattice(double a, double b, double c, double alpha, double beta,
+              double gamma);
 
-    size_t orderedDistanceCount()
-    {
-        return orderedDistances.size();
-    }
+  void addExpanded();
+  void powderPattern(bool originOnly = false,
+                     std::string filename = "latticePowder.csv");
+  void anglePattern(bool originOnly = false);
 
-    double orderedDistance(int i)
-    {
-        return orderedDistances[i];
-    }
+  size_t orderedDistanceCount() { return orderedDistances.size(); }
+
+  double orderedDistance(int i) { return orderedDistances[i]; }
 };
 
 #endif /* defined(__cppxfel__FreeLattice__) */

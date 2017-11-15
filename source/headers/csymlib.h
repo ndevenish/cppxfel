@@ -21,7 +21,8 @@
  *
  * @verbatim
 
-<!-- ::INDEX_INFO::CSYM library::Library::::C/C++ Software Library for symmetry information:::::::: -->
+<!-- ::INDEX_INFO::CSYM library::Library::::C/C++ Software Library for symmetry
+information:::::::: -->
 
    @endverbatim
  *
@@ -83,8 +84,8 @@ different form. There are also the following conversion functions:
 <li>symop_to_mat4
 </ul>
 Note that the order of symmetry operators may be important in some cases, for
-example in MTZ files with a M/ISYM column where ISYM encodes the symmetry operation
-used.
+example in MTZ files with a M/ISYM column where ISYM encodes the symmetry
+operation used.
 
  *  @section csym_examples Examples
 
@@ -110,7 +111,7 @@ See examples on <a href="ftp://ftp.ccp4.ac.uk/pub/mdw/csym">ftp area</a>
 /* note that definitions in ccp4_spg.h are within the CSym namespace */
 #include "ccp4_spg.h"
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 namespace CSym {
 extern "C" {
 #endif
@@ -157,7 +158,7 @@ CCP4SPG *ccp4spg_load_by_ccp4_spgname(const char *ccp4spgname);
  * @param op1 pointer to array of operators
  * @return pointer to spacegroup
  */
-CCP4SPG * ccp4_spgrp_reverse_lookup(const int nsym1, const ccp4_symop *op1);
+CCP4SPG *ccp4_spgrp_reverse_lookup(const int nsym1, const ccp4_symop *op1);
 
 /** Look up spacegroup from SYMOP.
  *  This would not normally be called directly, but via one of
@@ -173,8 +174,8 @@ CCP4SPG * ccp4_spgrp_reverse_lookup(const int nsym1, const ccp4_symop *op1);
  * @return pointer to spacegroup
  */
 CCP4SPG *ccp4spg_load_spacegroup(const int numspg, const int ccp4numspg,
-        const char *spgname, const char *ccp4spgname,
-        const int nsym1, const ccp4_symop *op1);
+                                 const char *spgname, const char *ccp4spgname,
+                                 const int nsym1, const ccp4_symop *op1);
 
 /** Free all memory malloc'd from static pointers.
  * To be called before program exit. The function can be
@@ -189,7 +190,7 @@ void ccp4spg_mem_tidy(void);
  * @param rot array of 4x4 matrices
  * @return number of symops read, or -1 on failure
  */
-int symfr_driver (const char *line, float rot[][4][4]);
+int symfr_driver(const char *line, float rot[][4][4]);
 
 /** Free memory associated with spacegroup.
  * @param sp pointer to spacegroup
@@ -224,27 +225,27 @@ int ccp4_spg_get_centering(const char *symbol_Hall, float cent_ops[4][3]);
  * @param spacegroup Pointer to CCP4 spacegroup structure
  * @return 0 on success, 1 on failure to load Laue data
  */
-int ccp4spg_load_laue(CCP4SPG* spacegroup, const int nlaue);
+int ccp4spg_load_laue(CCP4SPG *spacegroup, const int nlaue);
 
 /** Test if reflection is in asu of Laue group 1bar.
  * @return 1 if in asu else 0
  */
-int ASU_1b   (const int h, const int k, const int l);
+int ASU_1b(const int h, const int k, const int l);
 
 /** Test if reflection is in asu of Laue group 2/m.
  * @return 1 if in asu else 0
  */
-int ASU_2_m  (const int h, const int k, const int l);
+int ASU_2_m(const int h, const int k, const int l);
 
 /** Test if reflection is in asu of Laue group mmm.
  * @return 1 if in asu else 0
  */
-int ASU_mmm  (const int h, const int k, const int l);
+int ASU_mmm(const int h, const int k, const int l);
 
 /** Test if reflection is in asu of Laue group 4/m.
  * @return 1 if in asu else 0
  */
-int ASU_4_m  (const int h, const int k, const int l);
+int ASU_4_m(const int h, const int k, const int l);
 
 /** Test if reflection is in asu of Laue group 4/mmm.
  * @return 1 if in asu else 0
@@ -254,22 +255,22 @@ int ASU_4_mmm(const int h, const int k, const int l);
 /** Test if reflection is in asu of Laue group 3bar.
  * @return 1 if in asu else 0
  */
-int ASU_3b   (const int h, const int k, const int l);
+int ASU_3b(const int h, const int k, const int l);
 
 /** Test if reflection is in asu of Laue group 3bar1m.
  * @return 1 if in asu else 0
  */
-int ASU_3bm  (const int h, const int k, const int l);
+int ASU_3bm(const int h, const int k, const int l);
 
 /** Test if reflection is in asu of Laue group 3barm.
  * @return 1 if in asu else 0
  */
-int ASU_3bmx (const int h, const int k, const int l);
+int ASU_3bmx(const int h, const int k, const int l);
 
 /** Test if reflection is in asu of Laue group 6/m.
  * @return 1 if in asu else 0
  */
-int ASU_6_m  (const int h, const int k, const int l);
+int ASU_6_m(const int h, const int k, const int l);
 
 /** Test if reflection is in asu of Laue group 6/mmm.
  * @return 1 if in asu else 0
@@ -279,25 +280,25 @@ int ASU_6_mmm(const int h, const int k, const int l);
 /** Test if reflection is in asu of Laue group m3bar.
  * @return 1 if in asu else 0
  */
-int ASU_m3b  (const int h, const int k, const int l);
+int ASU_m3b(const int h, const int k, const int l);
 
 /** Test if reflection is in asu of Laue group m3barm.
  * @return 1 if in asu else 0
  */
-int ASU_m3bm  (const int h, const int k, const int l);
+int ASU_m3bm(const int h, const int k, const int l);
 
 /** Function to return Hall symbol for spacegroup.
  * @param sp pointer to spacegroup
  * @return pointer to Hall symbol for spacegroup
  */
-char *ccp4spg_symbol_Hall(CCP4SPG* sp);
+char *ccp4spg_symbol_Hall(CCP4SPG *sp);
 
 /** inverts a symmetry operator. The input operator is
  * converted to a 4 x 4 matrix, inverted, and converted back.
  * @param ccp4_symop input symmetry operator
  * @return inverted symmetry operator
  */
-ccp4_symop ccp4_symop_invert( const ccp4_symop op1 );
+ccp4_symop ccp4_symop_invert(const ccp4_symop op1);
 
 /** Compare two spacegroup names. Strings are converted to upper
  * case before making the comparison, but otherwise match must be
@@ -305,7 +306,7 @@ ccp4_symop ccp4_symop_invert( const ccp4_symop op1 );
  * @param spgname1 First spacegroup name.
  * @param spgname2 Second spacegroup name.
  * @return 1 if they are equal else 0.
-*/
+ */
 int ccp4spg_name_equal(const char *spgname1, const char *spgname2);
 
 /** Try to match a spacegroup name to one from SYMINFO. Blanks are
@@ -318,8 +319,9 @@ int ccp4spg_name_equal(const char *spgname1, const char *spgname2);
  *  to a standard SYMINFO one. E.g. it might have been provided by the
  *  user.
  * @return 1 if they are equal else 0.
-*/
-int ccp4spg_name_equal_to_lib(const char *spgname_lib, const char *spgname_match);
+ */
+int ccp4spg_name_equal_to_lib(const char *spgname_lib,
+                              const char *spgname_match);
 
 /** Function to create "short" name of spacegroup. Blanks
  * are removed, as are " 1" elements (except for the special case
@@ -327,7 +329,7 @@ int ccp4spg_name_equal_to_lib(const char *spgname_lib, const char *spgname_match
  * @param shortname String long enough to hold short name.
  * @param longname Long version of spacegroup name.
  * @return Pointer to shortname.
-*/
+ */
 char *ccp4spg_to_shortname(char *shortname, const char *longname);
 
 /** Function to deal with colon-specified spacegroup settings.
@@ -335,7 +337,7 @@ char *ccp4spg_to_shortname(char *shortname, const char *longname);
  * returned and should be dealt with by the calling function.
  * @param name Spacegroup name.
  * @return void
-*/
+ */
 void ccp4spg_name_de_colon(char *name);
 
 /** Compare two point group names. Blanks are removed when
@@ -344,29 +346,30 @@ void ccp4spg_name_de_colon(char *name);
  * @param pgname1 First point group name.
  * @param pgname2 Second point group name.
  * @return 1 if they are equal else 0.
-*/
+ */
 int ccp4spg_pgname_equal(const char *pgname1, const char *pgname2);
 
 /** Function to normalise translations of a symmetry operator,
  * i.e. to ensure 0.0 <= op.trn[i] < 1.0.
  * @param op pointer to symmetry operator.
  * @return Pointer to normalised symmetry operator.
-*/
+ */
 ccp4_symop *ccp4spg_norm_trans(ccp4_symop *op);
 
 /** Sort and compare two symmetry operator lists.
- * Kevin's code. The lists are coded as ints, which are then sorted and compared.
- * Note that no changes are made to the input operators, so that operators
- * differing by an integral number of unit cell translations are considered
- * unequal. If this is not what you want, normalise the operators with
- * ccp4spg_norm_trans first.
+ * Kevin's code. The lists are coded as ints, which are then sorted and
+ * compared. Note that no changes are made to the input operators, so that
+ * operators differing by an integral number of unit cell translations are
+ * considered unequal. If this is not what you want, normalise the operators
+ * with ccp4spg_norm_trans first.
  * @param nsym1 number of symmetry operators in first list
  * @param op1 first list of symmetry operators
  * @param nsym2 number of symmetry operators in second list
  * @param op2 second list of symmetry operators
  * @return 1 if they are equal else 0.
-*/
-int ccp4_spgrp_equal( int nsym1, const ccp4_symop *op1, int nsym2, const ccp4_symop *op2);
+ */
+int ccp4_spgrp_equal(int nsym1, const ccp4_symop *op1, int nsym2,
+                     const ccp4_symop *op2);
 
 /** Compare two symmetry operator lists.
  * Kevin's code. The lists are coded as ints, which are compared.
@@ -377,8 +380,9 @@ int ccp4_spgrp_equal( int nsym1, const ccp4_symop *op1, int nsym2, const ccp4_sy
  * @param nsym2 number of symmetry operators in second list
  * @param op2 second list of symmetry operators
  * @return 1 if they are equal else 0.
-*/
-int ccp4_spgrp_equal_order( int nsym1, const ccp4_symop *op1, int nsym2, const ccp4_symop *op2);
+ */
+int ccp4_spgrp_equal_order(int nsym1, const ccp4_symop *op1, int nsym2,
+                           const ccp4_symop *op2);
 
 /** Make an integer coding of a symmetry operator.
  * The coding takes 30 bits: 18 for the rotation and 12 for the translation.
@@ -392,8 +396,8 @@ int ccp4_symop_code(ccp4_symop op);
  * @param p1 pointer to first integer
  * @param p1 pointer to second integer
  * @return difference between integers
-*/
-int ccp4_int_compare( const void *p1, const void *p2 );
+ */
+int ccp4_int_compare(const void *p1, const void *p2);
 
 /** Test whether reflection or it's Friedel mate is in asu.
  * @param sp pointer to spacegroup
@@ -402,7 +406,8 @@ int ccp4_int_compare( const void *p1, const void *p2 );
  * @param l reflection index
  * @return 1 if in asu, -1 if -h -k -l is in asu, 0 otherwise
  */
-int ccp4spg_is_in_pm_asu(const CCP4SPG* sp, const int h, const int k, const int l);
+int ccp4spg_is_in_pm_asu(const CCP4SPG *sp, const int h, const int k,
+                         const int l);
 
 /** Test whether reflection is in asu.
  * @param sp pointer to spacegroup
@@ -411,7 +416,7 @@ int ccp4spg_is_in_pm_asu(const CCP4SPG* sp, const int h, const int k, const int 
  * @param l reflection index
  * @return 1 if in asu, 0 otherwise
  */
-int ccp4spg_is_in_asu(const CCP4SPG* sp, const int h, const int k, const int l);
+int ccp4spg_is_in_asu(const CCP4SPG *sp, const int h, const int k, const int l);
 
 /** Place reflection (hin,kin,lin) in the asymmetric unit of spacegroup "sp".
  * Resultant indices are placed in (hout,kout,lout).
@@ -427,8 +432,8 @@ int ccp4spg_is_in_asu(const CCP4SPG* sp, const int h, const int k, const int l);
  * "isym" = 2*isymop for reflections placed in the negative asu, i.e. I- of
  * a Friedel pair. Here "isymop" is the number of the symmetry operator used.
  */
-int ccp4spg_put_in_asu(const CCP4SPG* sp, const int hin, const int kin, const int lin,
-                       int *hout, int *kout, int *lout );
+int ccp4spg_put_in_asu(const CCP4SPG *sp, const int hin, const int kin,
+                       const int lin, int *hout, int *kout, int *lout);
 
 /** Transform reflection (hin,kin,lin) according to spacegroup "sp" and
  * operation "isym". Resultant indices are placed in (hout,kout,lout).
@@ -442,9 +447,9 @@ int ccp4spg_put_in_asu(const CCP4SPG* sp, const int hin, const int kin, const in
  * @param lout output reflection index
  * @return void
  */
-void ccp4spg_generate_indices(const CCP4SPG* sp, const int isym,
-                  const int hin, const int kin, const int lin,
-                              int *hout, int *kout, int *lout );
+void ccp4spg_generate_indices(const CCP4SPG *sp, const int isym, const int hin,
+                              const int kin, const int lin, int *hout,
+                              int *kout, int *lout);
 
 /** Shift phase value associated with hin,kin,lin according to translation
 and optional sign change. Return in range 0,360.
@@ -457,7 +462,8 @@ and optional sign change. Return in range 0,360.
  * @return shifted phase
  */
 float ccp4spg_phase_shift(const int hin, const int kin, const int lin,
-                          const float phasin, const float trans[3], const int isign);
+                          const float phasin, const float trans[3],
+                          const int isign);
 
 /** Check whether change of basis is necessary, i.e. whether the
  * change of basis matrix is not the identity.
@@ -471,7 +477,7 @@ int ccp4spg_do_chb(const float chb[3][3]);
  * @param sp pointer to spacegroup
  * @return void
  */
-void ccp4spg_set_centric_zones(CCP4SPG* sp);
+void ccp4spg_set_centric_zones(CCP4SPG *sp);
 
 /** Function to determine whether or not h,k,l is a centric reflection
  * in spacegroup "sp".
@@ -482,7 +488,8 @@ void ccp4spg_set_centric_zones(CCP4SPG* sp);
  * @return 1 if h,k,l is centric, 0 if not centric, and -1 if there is
  *  an error.
  */
-int ccp4spg_is_centric(const CCP4SPG* sp, const int h, const int k, const int l);
+int ccp4spg_is_centric(const CCP4SPG *sp, const int h, const int k,
+                       const int l);
 
 /** Check indices against a centric zone for a given spacegroup.
  * @param  nzone index of centric zone
@@ -491,7 +498,8 @@ int ccp4spg_is_centric(const CCP4SPG* sp, const int h, const int k, const int l)
  * @param l reflection index
  * @return 0 if in zone "nzone", non-zero otherwise
  */
-int ccp4spg_check_centric_zone(const int nzone, const int h, const int k, const int l);
+int ccp4spg_check_centric_zone(const int nzone, const int h, const int k,
+                               const int l);
 
 /** Return phase of a centric reflection in the range 0.0 <= phase < 180.0.
  * You should first check that reflection really is centric.
@@ -501,13 +509,14 @@ int ccp4spg_check_centric_zone(const int nzone, const int h, const int k, const 
  * @param l reflection index
  * @return phase of a centric reflection
  */
-float ccp4spg_centric_phase(const CCP4SPG* sp, const int h, const int k, const int l);
+float ccp4spg_centric_phase(const CCP4SPG *sp, const int h, const int k,
+                            const int l);
 
 /** Print a summary of the centric zones of a spacegroup.
  * @param sp pointer to spacegroup
  * @return void
  */
-void ccp4spg_print_centric_zones(const CCP4SPG* sp);
+void ccp4spg_print_centric_zones(const CCP4SPG *sp);
 
 /** Obtain string description of centric zone.
  * @param nzone index of centric zone
@@ -521,7 +530,7 @@ char *ccp4spg_describe_centric_zone(const int nzone, char *centric_zone);
  * @param sp pointer to spacegroup
  * @return void
  */
-void ccp4spg_set_epsilon_zones(CCP4SPG* sp);
+void ccp4spg_set_epsilon_zones(CCP4SPG *sp);
 
 /** Return reflection multiplicity factor for a given hkl in a given
  * spacegroup.
@@ -531,7 +540,8 @@ void ccp4spg_set_epsilon_zones(CCP4SPG* sp);
  * @param l reflection index
  * @return reflection multiplicity factor
  */
-int ccp4spg_get_multiplicity(const CCP4SPG* sp, const int h, const int k, const int l);
+int ccp4spg_get_multiplicity(const CCP4SPG *sp, const int h, const int k,
+                             const int l);
 
 /** Check indices against an epsilon zone for a given spacegroup.
  * @param nzone index of epsilon zone (runs from 1 to 13)
@@ -540,13 +550,14 @@ int ccp4spg_get_multiplicity(const CCP4SPG* sp, const int h, const int k, const 
  * @param l reflection index
  * @return 0 if in zone "nzone", non-zero otherwise
  */
-int ccp4spg_check_epsilon_zone(const int nzone, const int h, const int k, const int l);
+int ccp4spg_check_epsilon_zone(const int nzone, const int h, const int k,
+                               const int l);
 
 /** Print a summary of the epsilon zones of a spacegroup.
  * @param sp pointer to spacegroup
  * @return void
  */
-void ccp4spg_print_epsilon_zones(const CCP4SPG* sp);
+void ccp4spg_print_epsilon_zones(const CCP4SPG *sp);
 
 /** Obtain string description of epsilon zone.
  * @param nzone index of epsilon zone
@@ -555,7 +566,6 @@ void ccp4spg_print_epsilon_zones(const CCP4SPG* sp);
  */
 char *ccp4spg_describe_epsilon_zone(const int nzone, char *epsilon_zone);
 
-
 /** Check if reflection is a systematic absence.
  * @param sp pointer to spacegroup
  * @param h reflection index
@@ -563,7 +573,7 @@ char *ccp4spg_describe_epsilon_zone(const int nzone, char *epsilon_zone);
  * @param l reflection index
  * @return 1 if reflection is a systematic absence, 0 otherwise.
  */
-int ccp4spg_is_sysabs(const CCP4SPG* sp, const int h, const int k, const int l);
+int ccp4spg_is_sysabs(const CCP4SPG *sp, const int h, const int k, const int l);
 
 /** Translated from Alexei Vagin's CALC_ORIG_PS.
  * @param namspg Spacegroup name for printing only.
@@ -576,21 +586,22 @@ int ccp4spg_is_sysabs(const CCP4SPG* sp, const int h, const int k, const int l);
  * @param iprint If true, print out list of alternative origins.
  * @return Number of alternate origins for spacegroup.
  */
-int ccp4spg_generate_origins(const char *namspg, const int nsym, const float rsym[][4][4],
-                             float origins[][3], int *polarx, int *polary, int *polarz,
+int ccp4spg_generate_origins(const char *namspg, const int nsym,
+                             const float rsym[][4][4], float origins[][3],
+                             int *polarx, int *polary, int *polarz,
                              const int iprint);
 
 /** Print details on reciprocal spacegroup.
  * @param sp pointer to spacegroup
  * @return void
  */
-void ccp4spg_print_recip_spgrp(const CCP4SPG* sp);
+void ccp4spg_print_recip_spgrp(const CCP4SPG *sp);
 
 /** Print reciprocal symops.
  * @param sp pointer to spacegroup
  * @return void
  */
-void ccp4spg_print_recip_ops(const CCP4SPG* sp);
+void ccp4spg_print_recip_ops(const CCP4SPG *sp);
 
 /** Convert string of type 0<=y<=1/4 to 0.0-delta, 0.25+delta, where
  * delta is set to 0.00001 Makes many assumptions about string.
@@ -611,8 +622,9 @@ int range_to_limits(const char *range, float limits[2]);
  * @param nz returns sampling intervals along z
  * @return void
  */
-void set_fft_grid(CCP4SPG* sp, const int nxmin, const int nymin, const int nzmin,
-                  const float sample, int *nx, int *ny, int *nz);
+void set_fft_grid(CCP4SPG *sp, const int nxmin, const int nymin,
+                  const int nzmin, const float sample, int *nx, int *ny,
+                  int *nz);
 
 /** Checks whether all factors of a number n are less than or
  * equal to 19.
@@ -640,6 +652,7 @@ int get_grid_sample(const int minsmp, const int nmul, const float sample);
 int ccp4spg_check_symm_cell(int nsym, float rsym[][4][4], float cell[6]);
 
 #ifdef __cplusplus
-} }
+}
+}  // namespace CSym
 #endif
 #endif

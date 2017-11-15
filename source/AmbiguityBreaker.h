@@ -17,59 +17,55 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 #ifndef __cppxfel__AmbiguityBreaker__
 #define __cppxfel__AmbiguityBreaker__
 
+#include <vector>
 #include "MtzManager.h"
 #include "parameters.h"
-#include <vector>
 
 class StatisticsManager;
 typedef std::map<MtzPtr, double> CrystalCorrelation;
 typedef std::map<MtzPtr, CrystalCorrelation> CorrelationMap;
 
-class AmbiguityBreaker : public LoggableObject
-{
-private:
-    std::vector<CorrelationMap> correlationMaps;
-    vector<MtzPtr> mtzs;
-    int ambiguityCount;
-    StatisticsManager *statsManager;
-    double gridCorrelation(int imageNumI, int imageNumJ);
-    double evaluation();
-    double gradientForImage(int imageNum, int axis);
+class AmbiguityBreaker : public LoggableObject {
+ private:
+  std::vector<CorrelationMap> correlationMaps;
+  vector<MtzPtr> mtzs;
+  int ambiguityCount;
+  StatisticsManager *statsManager;
+  double gridCorrelation(int imageNumI, int imageNumJ);
+  double evaluation();
+  double gradientForImage(int imageNum, int axis);
 
-    double distance(int vectorNum, int centreNum);
-    double toggleValue(int slowCloud, int fastCloud);
-    double evaluationCloudCluster();
-    double gradientCloudCluster(int centre, int axis);
+  double distance(int vectorNum, int centreNum);
+  double toggleValue(int slowCloud, int fastCloud);
+  double evaluationCloudCluster();
+  double gradientCloudCluster(int centre, int axis);
 
-    double dotProduct(int imageNumI, int imageNumJ);
+  double dotProduct(int imageNumI, int imageNumJ);
 
-        static void plotDiffOneChipThread(AmbiguityBreaker *me, int offset, PNGFilePtr png);
-        static void plotDifferenceThread(AmbiguityBreaker *me, int offset, PNGFilePtr png);
-    void assignPartialities();
-    void breakAmbiguity();
-        static void calculateCorrelations(AmbiguityBreaker *me, int offset);
-    void makeCorrelationGrid();
-    void printResults();
-    void merge();
-    MtzPtr merged;
+  static void plotDiffOneChipThread(AmbiguityBreaker *me, int offset,
+                                    PNGFilePtr png);
+  static void plotDifferenceThread(AmbiguityBreaker *me, int offset,
+                                   PNGFilePtr png);
+  void assignPartialities();
+  void breakAmbiguity();
+  static void calculateCorrelations(AmbiguityBreaker *me, int offset);
+  void makeCorrelationGrid();
+  void printResults();
+  void merge();
+  MtzPtr merged;
 
+ public:
+  void setMtzs(vector<MtzPtr> newMtzs);
 
-public:
-    void setMtzs(vector<MtzPtr> newMtzs);
+  AmbiguityBreaker(vector<MtzPtr> newMtzs);
+  void run();
+  void overrideAmbiguity(int newAmbiguity);
+  void plotDifferences(bool oneChip = false);
 
-    AmbiguityBreaker(vector<MtzPtr> newMtzs);
-    void run();
-    void overrideAmbiguity(int newAmbiguity);
-        void plotDifferences(bool oneChip = false);
-
-    MtzPtr getMergedMtz()
-    {
-        return merged;
-    }
+  MtzPtr getMergedMtz() { return merged; }
 };
 
 #endif /* defined(__cppxfel__AmbiguityBreaker__) */

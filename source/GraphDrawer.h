@@ -21,46 +21,41 @@
 #ifndef GRAPHDRAWER_H_
 #define GRAPHDRAWER_H_
 
-#include "parameters.h"
-#include "StatisticsManager.h"
-#include "MtzManager.h"
 #include <boost/variant.hpp>
 #include <map>
+#include "MtzManager.h"
+#include "StatisticsManager.h"
+#include "parameters.h"
 
 typedef std::map<std::string, boost::variant<double, std::string> > GraphMap;
 
-class GraphDrawer
-{
-private:
-        MtzManager *mtz;
+class GraphDrawer {
+ private:
+  MtzManager* mtz;
 
-public:
-        GraphDrawer(MtzManager *mtz);
-        virtual ~GraphDrawer();
+ public:
+  GraphDrawer(MtzManager* mtz);
+  virtual ~GraphDrawer();
 
-    void resolutionStatsCSV(std::vector<MtzManager *>& managers);
+  void resolutionStatsCSV(std::vector<MtzManager*>& managers);
 
-    void partialityPNG(MtzPtr mtz, double maxRes = 0);
+  void partialityPNG(MtzPtr mtz, double maxRes = 0);
 
-    void plotSingleMillerFromMtzs(std::vector<MtzPtr> mtzs, int h, int k, int l);
-    void plotReflectionFromMtzs(std::vector<MtzPtr> mtzs, int h = 0, int k = 0, int l = 0);
-    void plotOrientationStats(vector<MtzPtr> mtzs);
-    void cutoutIntegrationAreas(std::vector<MtzPtr> mtzs, int h = 0, int k = 0, int l = 0);
+  void plotSingleMillerFromMtzs(std::vector<MtzPtr> mtzs, int h, int k, int l);
+  void plotReflectionFromMtzs(std::vector<MtzPtr> mtzs, int h = 0, int k = 0,
+                              int l = 0);
+  void plotOrientationStats(vector<MtzPtr> mtzs);
+  void cutoutIntegrationAreas(std::vector<MtzPtr> mtzs, int h = 0, int k = 0,
+                              int l = 0);
 
-    void partialityPNGResolutionShell(std::string filename, double meanWavelength,
-                                      std::vector<ReflectionPtr> refRefls,
-                                      std::vector<ReflectionPtr> imageRefls,
-                                      double minRes, double maxRes);
+  void partialityPNGResolutionShell(std::string filename, double meanWavelength,
+                                    std::vector<ReflectionPtr> refRefls,
+                                    std::vector<ReflectionPtr> imageRefls,
+                                    double minRes, double maxRes);
 
-    MtzManager*& getMtz()
-        {
-                return mtz;
-        }
+  MtzManager*& getMtz() { return mtz; }
 
-        void setMtz(MtzManager*& mtz)
-        {
-                this->mtz = mtz;
-        }
+  void setMtz(MtzManager*& mtz) { this->mtz = mtz; }
 };
 
 #endif /* GRAPHDRAWER_H_ */

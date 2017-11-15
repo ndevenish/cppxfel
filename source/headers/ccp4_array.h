@@ -68,7 +68,7 @@ Example: to handle an array of type mytype:
 #ifndef __CCP4_ARRAY_INC
 #define __CCP4_ARRAY_INC
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -93,7 +93,7 @@ typedef struct ccp4array_base_ {
   \param v   The array pointer
   \return    The new array pointer (redundent)
 */
-#define ccp4array_new(v) ccp4array_new_((ccp4_ptr*)(&v))
+#define ccp4array_new(v) ccp4array_new_((ccp4_ptr *)(&v))
 
 /*! Macro to allocate a new array with non-zero size.
   The array is allocated with a size of s and capacity of at least s
@@ -101,7 +101,8 @@ typedef struct ccp4array_base_ {
   \param s   The new size
   \return    The new array pointer (redundent)
 */
-#define ccp4array_new_size(v,s) ccp4array_new_size_((ccp4_ptr*)(&v),s,sizeof(*v))
+#define ccp4array_new_size(v, s) \
+  ccp4array_new_size_((ccp4_ptr *)(&v), s, sizeof(*v))
 
 /*! Macro to resize an array.
   This changes the size. Memory allocation only takes place if the new
@@ -111,7 +112,8 @@ typedef struct ccp4array_base_ {
   \param v   The array pointer
   \param s   The new size
 */
-#define ccp4array_resize(v,s) ccp4array_resize_((ccp4_ptr*)(&v),s,sizeof(*v))
+#define ccp4array_resize(v, s) \
+  ccp4array_resize_((ccp4_ptr *)(&v), s, sizeof(*v))
 
 /*! Macro to reserve space for an array.
   This forces a memory reallocation. The size of the array is
@@ -121,7 +123,8 @@ typedef struct ccp4array_base_ {
   \param v   The array pointer
   \param s   The new capacity
 */
-#define ccp4array_reserve(v,s) ccp4array_reserve_((ccp4_ptr*)(&v),s,sizeof(*v))
+#define ccp4array_reserve(v, s) \
+  ccp4array_reserve_((ccp4_ptr *)(&v), s, sizeof(*v))
 
 /*! Macro to append an element to an array.
   This increments the size. Memory allocation only takes place if the new
@@ -129,7 +132,8 @@ typedef struct ccp4array_base_ {
   \param v   The array pointer
   \param d   The new element (may not be a literal)
 */
-#define ccp4array_append(v,d) ccp4array_append_((ccp4_ptr*)(&v),(ccp4_constptr)(&d),sizeof(*v))
+#define ccp4array_append(v, d) \
+  ccp4array_append_((ccp4_ptr *)(&v), (ccp4_constptr)(&d), sizeof(*v))
 
 /*! Macro to append n copies of an element to an array.
   This increments the size by n. Memory allocation only takes place if the new
@@ -138,7 +142,8 @@ typedef struct ccp4array_base_ {
   \param d   The new element (may not be a literal)
   \param n   The number of copies to append
 */
-#define ccp4array_append_n(v,d,n) ccp4array_append_n_((ccp4_ptr*)(&v),(ccp4_constptr)(&d),n,sizeof(*v))
+#define ccp4array_append_n(v, d, n) \
+  ccp4array_append_n_((ccp4_ptr *)(&v), (ccp4_constptr)(&d), n, sizeof(*v))
 
 /*! Macro to append n elements from another list to an array.
   This increment the size by n. Memory allocation only takes place if the new
@@ -147,7 +152,8 @@ typedef struct ccp4array_base_ {
   \param l   Pointer to the list
   \param n   The number of copies to append
 */
-#define ccp4array_append_list(v,l,n) ccp4array_append_list_((ccp4_ptr*)(&v),(ccp4_constptr)l,n,sizeof(*v))
+#define ccp4array_append_list(v, l, n) \
+  ccp4array_append_list_((ccp4_ptr *)(&v), (ccp4_constptr)l, n, sizeof(*v))
 
 /*! Macro to insert an element before the element[i] of an array.
   This increments the size. All subsequent elements are moved up. As a
@@ -156,7 +162,8 @@ typedef struct ccp4array_base_ {
   \param d   The new element (may not be a literal)
   \param i   The element before which the insertion is to be made.
 */
-#define ccp4array_insert(v,i,d) ccp4array_insert_((ccp4_ptr*)(&v),i,(ccp4_constptr)(&d),sizeof(*v))
+#define ccp4array_insert(v, i, d) \
+  ccp4array_insert_((ccp4_ptr *)(&v), i, (ccp4_constptr)(&d), sizeof(*v))
 
 /*! Macro to delete element[i] of an array, preserving order.
   This decrements the size. All subsequent elements are moved down. As a
@@ -164,84 +171,90 @@ typedef struct ccp4array_base_ {
   \param v   The array pointer
   \param i   The element to be deleted
 */
-#define ccp4array_delete_ordered(v,i) ccp4array_delete_ordered_((ccp4_ptr*)(&v),i,sizeof(*v))
+#define ccp4array_delete_ordered(v, i) \
+  ccp4array_delete_ordered_((ccp4_ptr *)(&v), i, sizeof(*v))
 
 /*! Macro to delete element[i] of an array without preserving order. The
   last element is moved into the gap, and the size is decremented.
   \param v   The array pointer
   \param i   The element to be deleted
 */
-#define ccp4array_delete(v,i) ccp4array_delete_((ccp4_ptr*)(&v),i,sizeof(*v))
+#define ccp4array_delete(v, i) \
+  ccp4array_delete_((ccp4_ptr *)(&v), i, sizeof(*v))
 
 /*! Macro to delete the last element of an array.
   This decrements the size.
   \param v   The array pointer
 */
-#define ccp4array_delete_last(v) ccp4array_delete_last_((ccp4_ptr*)(&v),sizeof(*v))
+#define ccp4array_delete_last(v) \
+  ccp4array_delete_last_((ccp4_ptr *)(&v), sizeof(*v))
 
 /*! Macro to return the size of the array.
   \param v   The array pointer
   \return    The size (int)
 */
-#define ccp4array_size(v) ccp4array_size_((ccp4_constptr*)(&v))
+#define ccp4array_size(v) ccp4array_size_((ccp4_constptr *)(&v))
 
 /*! Macro free the array.
   All memory, including the header, is freed.
   \param v   The array pointer
 */
-#define ccp4array_free(v) ccp4array_free_((ccp4_ptr*)(&v))
+#define ccp4array_free(v) ccp4array_free_((ccp4_ptr *)(&v))
 
 /**
  * See macro ccp4array_new
-*/
+ */
 ccp4_ptr ccp4array_new_(ccp4_ptr *p);
 /**
  * See macro ccp4array_new_size
-*/
+ */
 ccp4_ptr ccp4array_new_size_(ccp4_ptr *p, const int size, const size_t reclen);
 /**
  * See macro ccp4array_resize
-*/
+ */
 void ccp4array_resize_(ccp4_ptr *p, const int size, const size_t reclen);
 /**
  * See macro ccp4array_reserve
-*/
+ */
 void ccp4array_reserve_(ccp4_ptr *p, const int size, const size_t reclen);
 /**
  * See macro ccp4array_append
-*/
+ */
 void ccp4array_append_(ccp4_ptr *p, ccp4_constptr data, const size_t reclen);
 /**
  * See macro ccp4array_append_n
-*/
-void ccp4array_append_n_(ccp4_ptr *p, ccp4_constptr data, const int n, const size_t reclen);
+ */
+void ccp4array_append_n_(ccp4_ptr *p, ccp4_constptr data, const int n,
+                         const size_t reclen);
 /**
  * See macro ccp4array_append_list
-*/
-void ccp4array_append_list_(ccp4_ptr *p, ccp4_constptr data, const int n, const size_t reclen);
+ */
+void ccp4array_append_list_(ccp4_ptr *p, ccp4_constptr data, const int n,
+                            const size_t reclen);
 /**
  * See macro ccp4array_insert
-*/
-void ccp4array_insert_(ccp4_ptr *p, const int i, ccp4_constptr data, const size_t reclen);
+ */
+void ccp4array_insert_(ccp4_ptr *p, const int i, ccp4_constptr data,
+                       const size_t reclen);
 /**
  * See macro ccp4array_delete_ordered
-*/
+ */
 void ccp4array_delete_ordered_(ccp4_ptr *p, const int i, const size_t reclen);
 /**
  * See macro ccp4array_delete
-*/
+ */
 void ccp4array_delete_(ccp4_ptr *p, const int i, const size_t reclen);
 /**
  * See macro ccp4array_delete_last
-*/
+ */
 void ccp4array_delete_last_(ccp4_ptr *p, const size_t reclen);
 /**
  * See macro ccp4array_size
-*/
+ */
 int ccp4array_size_(ccp4_constptr *p);
 /**
  * See macro ccp4array_free
-*/
+ */
 void ccp4array_free_(ccp4_ptr *p);
 
 #ifdef __cplusplus

@@ -19,9 +19,9 @@
 
 #ifdef _MSC_VER
 
-#include <windows.h>
 #include <stdio.h>
 #include <time.h>
+#include <windows.h>
 
 #define BUFSIZE 1024
 
@@ -158,7 +158,7 @@ static int last_nonopt;
    `first_nonopt' and `last_nonopt' are relocated so that they describe
     the new indices of the non-options in ARGV after they are moved.  */
 
-static void exchange (char **argv);
+static void exchange(char **argv);
 
 /* Scan elements of ARGV (whose length is ARGC) for option characters
    given in OPTSTRING.
@@ -197,6 +197,6 @@ static void exchange (char **argv);
    If OPTSTRING starts with `-', it requests a different method of handling the
    non-option ARGV-elements.  See the comments about RETURN_IN_ORDER, above.  */
 
-int getopt (int argc,char **argv,char *optstring);
+int getopt(int argc, char **argv, char *optstring);
 
 #endif

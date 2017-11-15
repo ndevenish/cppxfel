@@ -26,9 +26,8 @@ extern "C" {
 int parse_maplabels(CMMFile *mfile);
 int write_maplabels(const CMMFile *mfile);
 
-
 #ifdef __cplusplus
 }
 #endif
 
-#endif    /* __GUARD_MAPLIB_LABEL */
+#endif /* __GUARD_MAPLIB_LABEL */

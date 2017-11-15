@@ -28,23 +28,23 @@
 #include "ccp4_types.h"
 /* rcsidhh[] = "$Id: ccp4_fortran.h,v 1.9 2008/06/18 16:55:56 mdw Exp $" */
 
-/* stardent is now obsolete, but we retain this category in case it is useful later */
+/* stardent is now obsolete, but we retain this category in case it is useful
+ * later */
 #ifdef CALL_LIKE_STARDENT
-  /* SStrParam is used in Ardent-like machines' fortran calls */
-  /* for passing a string parameter */
-  DefineStructure(SStrPar)
-  struct SStrPar  {
-    pstr S;
-    int  len;
-    int  id;
-  };
+/* SStrParam is used in Ardent-like machines' fortran calls */
+/* for passing a string parameter */
+DefineStructure(SStrPar) struct SStrPar {
+  pstr S;
+  int len;
+  int id;
+};
 #endif
 
-#define _LVTOB(l) ((long) ((l) == 0 ? 0 : 1))
-#define _BTOLV(l) ((int) ((l) == 0 ? 0 : 1))
-#if defined (__OSF1__) || defined (__osf__)
+#define _LVTOB(l) ((long)((l) == 0 ? 0 : 1))
+#define _BTOLV(l) ((int)((l) == 0 ? 0 : 1))
+#if defined(__OSF1__) || defined(__osf__)
 #undef _BTOLV
-#define _BTOLV(l) ((int) ((l) == 0 ? 0 : -1))
+#define _BTOLV(l) ((int)((l) == 0 ? 0 : -1))
 #endif
 
 /*
@@ -163,175 +163,158 @@
    exactly identical to those of FORTRAN_SUBR(...).
    FORTRAN_CALL(...) should be followed by semicolon.                    */
 
+#if defined(CALL_LIKE_SUN)
 
-#if  defined(CALL_LIKE_SUN)
+typedef pstr fpstr;
 
-  typedef pstr fpstr;
+#define FTN_STR(s) s
+#define FTN_LEN(s) s##_len
 
-#define FTN_STR(s)  s
-#define FTN_LEN(s)  s##_len
+#define char_struct(s) \
+  pstr s;              \
+  int s##_len;
+#define fill_char_struct(s, str) \
+  s = str;                       \
+  s##_len = strlen(str);
+#define init_char_struct(s, str, size) \
+  s = str;                             \
+  s##_len = size;
 
-#define char_struct(s)           \
-    pstr  s;                       \
-    int   s##_len;
-#define fill_char_struct(s,str)  \
-    s  = str;                      \
-    s##_len = strlen(str);
-#define init_char_struct(s,str,size)  \
-    s  = str;                      \
-    s##_len = size;
-
-#define FORTRAN_SUBR(NAME,name,p_sun,p_stardent,p_mvs) \
-    void name##_ p_sun
-#define FORTRAN_CALL(NAME,name,p_sun,p_stardent,p_mvs) \
-    name##_ p_sun
-#define FORTRAN_FUN(val,NAME,name,p_sun,p_stardent,p_mvs) \
-    val name##_ p_sun
+#define FORTRAN_SUBR(NAME, name, p_sun, p_stardent, p_mvs) void name##_ p_sun
+#define FORTRAN_CALL(NAME, name, p_sun, p_stardent, p_mvs) name##_ p_sun
+#define FORTRAN_FUN(val, NAME, name, p_sun, p_stardent, p_mvs) val name##_ p_sun
 #elif defined(CALL_LIKE_HPUX)
 
-  typedef pstr fpstr;
+typedef pstr fpstr;
 
-#  define FTN_STR(s)  s
-#  define FTN_LEN(s)  s##_len
+#define FTN_STR(s) s
+#define FTN_LEN(s) s##_len
 
-#  define char_struct(s)  \
-    pstr  s;              \
-    int   s##_len;
-#  define fill_char_struct(s,str)  \
-    s  = str;                      \
-    s##_len = strlen(str);
-#  define init_char_struct(s,str,size)  \
-    s  = str;                      \
-    s##_len = size;
+#define char_struct(s) \
+  pstr s;              \
+  int s##_len;
+#define fill_char_struct(s, str) \
+  s = str;                       \
+  s##_len = strlen(str);
+#define init_char_struct(s, str, size) \
+  s = str;                             \
+  s##_len = size;
 
-#  define FORTRAN_SUBR(NAME,name,p_sun,p_stardent,p_mvs) \
-    void name p_sun
-#  define FORTRAN_CALL(NAME,name,p_sun,p_stardent,p_mvs) \
-    name p_sun
-#  define FORTRAN_FUN(val,NAME,name,p_sun,p_stardent,p_mvs) \
-    val name p_sun
+#define FORTRAN_SUBR(NAME, name, p_sun, p_stardent, p_mvs) void name p_sun
+#define FORTRAN_CALL(NAME, name, p_sun, p_stardent, p_mvs) name p_sun
+#define FORTRAN_FUN(val, NAME, name, p_sun, p_stardent, p_mvs) val name p_sun
 #elif defined(CALL_LIKE_STARDENT)
 
-  typedef PStrPar fpstr;
+typedef PStrPar fpstr;
 
-#  define FTN_STR(s)  s->Str_pointer
-#  define FTN_LEN(s)  s->Str_length
+#define FTN_STR(s) s->Str_pointer
+#define FTN_LEN(s) s->Str_length
 
-#  define char_struct(s)           \
-    SStrPar s;
-#  define fill_char_struct(s,str)  \
-    s.S   = str;                   \
-    s.len = strlen(FName);         \
-    s.id  = 0;
-#  define init_char_struct(s,str,size)  \
-    s.S   = str;                   \
-    s.len = size;         \
-    s.id  = 0;
+#define char_struct(s) SStrPar s;
+#define fill_char_struct(s, str) \
+  s.S = str;                     \
+  s.len = strlen(FName);         \
+  s.id = 0;
+#define init_char_struct(s, str, size) \
+  s.S = str;                           \
+  s.len = size;                        \
+  s.id = 0;
 
-#  define FORTRAN_SUBR(NAME,name,p_send,p_sstruct,p_sflw) \
-    void NAME p_stardent
-#  define FORTRAN_CALL(NAME,name,p_send,p_sstruct,p_sflw) \
-    NAME p_stardent
-#  define FORTRAN_FUN(val,NAME,name,p_send,p_sstruct,p_sflw) \
-    val NAME p_stardent
+#define FORTRAN_SUBR(NAME, name, p_send, p_sstruct, p_sflw) void NAME p_stardent
+#define FORTRAN_CALL(NAME, name, p_send, p_sstruct, p_sflw) NAME p_stardent
+#define FORTRAN_FUN(val, NAME, name, p_send, p_sstruct, p_sflw) \
+  val NAME p_stardent
 
 #elif defined(CALL_LIKE_VMS)
 
-  typedef dsc$descriptor_s * fpstr;
+typedef dsc$descriptor_s *fpstr;
 
-#  define FTN_STR(s)  s->dsc$a_pointer;
-#  define FTN_LEN(s)  s->dsc$w_length;
+#define FTN_STR(s) s->dsc$a_pointer;
+#define FTN_LEN(s) s->dsc$w_length;
 
-#  define char_struct(s)                \
-    dsc$descriptor_s s;
-#  define fill_char_struct(s,str)     \
-    s.dsc$a_pointer = str;            \
-    s.dsc$w_length  = strlen(str);    \
-    s.dsc$b_dtype   = DSC$K_DTYPE_T;  \
-    s.dsc$b_class   = DSC$K_CLASS_S;
-#  define init_char_struct(s,str,size)     \
-    s.dsc$a_pointer = str;            \
-    s.dsc$w_length  = size;    \
-    s.dsc$b_dtype   = DSC$K_DTYPE_T;  \
-    s.dsc$b_class   = DSC$K_CLASS_S;
+#define char_struct(s) dsc$descriptor_s s;
+#define fill_char_struct(s, str) \
+  s.dsc$a_pointer = str;         \
+  s.dsc$w_length = strlen(str);  \
+  s.dsc$b_dtype = DSC$K_DTYPE_T; \
+  s.dsc$b_class = DSC$K_CLASS_S;
+#define init_char_struct(s, str, size) \
+  s.dsc$a_pointer = str;               \
+  s.dsc$w_length = size;               \
+  s.dsc$b_dtype = DSC$K_DTYPE_T;       \
+  s.dsc$b_class = DSC$K_CLASS_S;
 
-#  define FORTRAN_SUBR(NAME,name,p_sun,p_stardent,p_mvs) \
-    void NAME p_stardent
-#  define FORTRAN_CALL(NAME,name,p_sun,p_stardent,p_mvs) \
-    NAME p_stardent
-#  define FORTRAN_FUN(val,NAME,name,p_sun,p_stardent,p_mvs) \
-    val NAME p_stardent
+#define FORTRAN_SUBR(NAME, name, p_sun, p_stardent, p_mvs) void NAME p_stardent
+#define FORTRAN_CALL(NAME, name, p_sun, p_stardent, p_mvs) NAME p_stardent
+#define FORTRAN_FUN(val, NAME, name, p_sun, p_stardent, p_mvs) \
+  val NAME p_stardent
 
 #elif defined(CALL_LIKE_MVS)
 
 #if (CALL_LIKE_MVS == 2)
 
-  typedef pstr fpstr;
+typedef pstr fpstr;
 
-#define FTN_STR(s)  s
-#define FTN_LEN(s)  s##_len
+#define FTN_STR(s) s
+#define FTN_LEN(s) s##_len
 
-#define char_struct(s)           \
-    pstr  s;                       \
-    int   s##_len;
-#define fill_char_struct(s,str)  \
-    s  = str;          \
-        s##_len = strlen(str);
-#define init_char_struct(s,str,size)  \
-    s  = str;                   \
-        s##_len = size;
+#define char_struct(s) \
+  pstr s;              \
+  int s##_len;
+#define fill_char_struct(s, str) \
+  s = str;                       \
+  s##_len = strlen(str);
+#define init_char_struct(s, str, size) \
+  s = str;                             \
+  s##_len = size;
 
-#define FORTRAN_SUBR(NAME,name,p_sun,p_stardent,p_mvs) \
-    void NAME p_sun
-#define FORTRAN_CALL(NAME,name,p_sun,p_stardent,p_mvs) \
-    NAME p_sun
-#define FORTRAN_FUN(val,NAME,name,p_sun,p_stardent,p_mvs) \
-    val NAME p_sun
+#define FORTRAN_SUBR(NAME, name, p_sun, p_stardent, p_mvs) void NAME p_sun
+#define FORTRAN_CALL(NAME, name, p_sun, p_stardent, p_mvs) NAME p_sun
+#define FORTRAN_FUN(val, NAME, name, p_sun, p_stardent, p_mvs) val NAME p_sun
 
 #else
 
-  typedef pstr fpstr;
+typedef pstr fpstr;
 
-#  define FTN_STR(s)  s
-#  define FTN_LEN(s)  s##_len
+#define FTN_STR(s) s
+#define FTN_LEN(s) s##_len
 
-#  define char_struct(s)  \
-    pstr  s;              \
-    int   s##_len;
-#  define fill_char_struct(s,str)  \
-    s  = str;                      \
-    s##_len = strlen(str);
-#  define init_char_struct(s,str,size)  \
-    s  = str;                      \
-    s##_len = size;
+#define char_struct(s) \
+  pstr s;              \
+  int s##_len;
+#define fill_char_struct(s, str) \
+  s = str;                       \
+  s##_len = strlen(str);
+#define init_char_struct(s, str, size) \
+  s = str;                             \
+  s##_len = size;
 
-#  define FORTRAN_SUBR(NAME,name,p_sun,p_stardent,p_mvs) \
-    void __stdcall NAME p_mvs
-#  define FORTRAN_CALL(NAME,name,p_sun,p_stardent,p_mvs) \
-    NAME p_mvs
-#  define FORTRAN_FUN(val,NAME,name,p_sun,p_stardent,p_mvs) \
-    val __stdcall NAME p_mvs
+#define FORTRAN_SUBR(NAME, name, p_sun, p_stardent, p_mvs) \
+  void __stdcall NAME p_mvs
+#define FORTRAN_CALL(NAME, name, p_sun, p_stardent, p_mvs) NAME p_mvs
+#define FORTRAN_FUN(val, NAME, name, p_sun, p_stardent, p_mvs) \
+  val __stdcall NAME p_mvs
 
-# endif
+#endif
 
 #else
 
-#  error  Unknown machine!!!
+#error Unknown machine!!!
 
-  typedef pstr fpstr;
+typedef pstr fpstr;
 
-#  define FTN_STR(s)  s
-#  define FTN_LEN(s)  s##_len
+#define FTN_STR(s) s
+#define FTN_LEN(s) s##_len
 
-#  define char_struct(s)  \
-    pstr  s;              \
-    int   s##_len;
-#  define fill_char_struct(s,str)  \
-    s  = str;                      \
-    s##_len = strlen(str);
-#  define init_char_struct(s,str,size)  \
-    s  = str;                      \
-    s##_len = size;
+#define char_struct(s) \
+  pstr s;              \
+  int s##_len;
+#define fill_char_struct(s, str) \
+  s = str;                       \
+  s##_len = strlen(str);
+#define init_char_struct(s, str, size) \
+  s = str;                             \
+  s##_len = size;
 
 /** Macro to define a function such that it is callable as
  * a Fortran subroutine.
@@ -340,9 +323,8 @@
  * @param p_sun Argument list in Sun style
  * @param p_stardent Argument list in Stardent style
  * @param p_mvs Argument list in MVS style
-*/
-#  define FORTRAN_SUBR(NAME,name,p_sun,p_stardent,p_mvs) \
-    void name##_ p_sun
+ */
+#define FORTRAN_SUBR(NAME, name, p_sun, p_stardent, p_mvs) void name##_ p_sun
 
 /** Macro to call a Fortran subroutine from a C function.
  * @param NAME Subroutine name in upper case
@@ -350,9 +332,8 @@
  * @param p_sun Argument list in Sun style
  * @param p_stardent Argument list in Stardent style
  * @param p_mvs Argument list in MVS style
-*/
-#  define FORTRAN_CALL(NAME,name,p_sun,p_stardent,p_mvs) \
-    name##_ p_sun
+ */
+#define FORTRAN_CALL(NAME, name, p_sun, p_stardent, p_mvs) name##_ p_sun
 
 /** Macro to define a function such that it is callable as
  * a Fortran function.
@@ -362,24 +343,23 @@
  * @param p_sun Argument list in Sun style
  * @param p_stardent Argument list in Stardent style
  * @param p_mvs Argument list in MVS style
-*/
-#  define FORTRAN_FUN(val,NAME,name,p_sun,p_stardent,p_mvs) \
-    val name##_ p_sun
+ */
+#define FORTRAN_FUN(val, NAME, name, p_sun, p_stardent, p_mvs) val name##_ p_sun
 
 #endif
 
 /* Define Fortran logical */
 typedef unsigned int ftn_logical;
-#if defined (KNOWN_MACHINE)
-#  define FORTRAN_LOGICAL_TRUE  1
-#  define FORTRAN_LOGICAL_FALSE 0
+#if defined(KNOWN_MACHINE)
+#define FORTRAN_LOGICAL_TRUE 1
+#define FORTRAN_LOGICAL_FALSE 0
 #endif
-#if defined (__OSF1__) || defined (__osf__)
-#  undef FORTRAN_LOGICAL_TRUE
-#  define FORTRAN_LOGICAL_TRUE  -1
+#if defined(__OSF1__) || defined(__osf__)
+#undef FORTRAN_LOGICAL_TRUE
+#define FORTRAN_LOGICAL_TRUE -1
 #endif
 
 char *ccp4_FtoCString(fpstr str1, int str1_len);
 void ccp4_CtoFString(fpstr str1, int str1_len, const char *cstring);
 
-#endif    /* __CCP4_FORTRAN */
+#endif /* __CCP4_FORTRAN */

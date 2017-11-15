@@ -24,6 +24,6 @@
  * Prototype subroutines                                                    *
  ****************************************************************************/
 
-size_t flength (char *s, int len);
+size_t flength(char *s, int len);
 
-#endif  /* __CCP4_LIBRARY_F */
+#endif /* __CCP4_LIBRARY_F */
